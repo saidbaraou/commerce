@@ -15,3 +15,6 @@ class Listing(models.Model):
 class Bid(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, default='USD')
+
+class Comments(models.Model):
+    
