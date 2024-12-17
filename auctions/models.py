@@ -24,7 +24,7 @@ class Bid(models.Model):
     class Meta:
         ordering = ('bid_time',) # Most recent bid first
 
-     def __str__(self):
+    def __str__(self):
         return f"Bid of : {self.price} {self.currency} by {self.user.first_name}"
 
 # class Comments(models.Model):
