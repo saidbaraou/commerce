@@ -21,8 +21,9 @@ class Bid(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, default='USD')
 
-    class Meta:
-        ordering = ('-bid_time',) # Most recent bid first
+    # class Meta:
+    #     ordering = ('-bid_time',) 
+        # Most recent bid first
 
     def __str__(self):
         return f"Bid of : {self.price} {self.currency} by {self.user.first_name}"
