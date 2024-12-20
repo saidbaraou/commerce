@@ -28,5 +28,7 @@ class Bid(models.Model):
     def __str__(self):
         return f"Bid of : {self.price} {self.currency} by {self.user.first_name}"
 
-# class Comments(models.Model):
-#     return
+class Comments(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='')
+    text = models.TextField()
