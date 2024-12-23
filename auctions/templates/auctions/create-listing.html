@@ -3,5 +3,28 @@
 {% block body %}
 <h2>Active Listings</h2>
 
-TODO
+<h1>Create a Listing</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <label for="title">Title:</label><br>
+  <input type="text" id="title" name="title" placeholder="Enter a title" required><br><br>
+
+  <label for="description">Listing Description:</label><br>
+  <textarea id="description" name="description" placeholder="Enter a description" required></textarea><br><br>
+
+  <label for="image_url">Image URL:</label><br>
+  <input type="url" id="image_url" name="image_url"><br><br>
+
+  <label for="category">Category:</label><br>
+  <input type="text" id="title" name="title" placeholder="Enter a category" required><br><br>
+  <select id="category" name="category" required>
+    {% for category in categories %}
+    <option value="{{ category.id }}">{{ category.name }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <button type="submit">Create Listing</button>
+</form>
 {% endblock %}
