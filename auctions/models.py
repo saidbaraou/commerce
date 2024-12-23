@@ -36,3 +36,13 @@ class Comments(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.name
