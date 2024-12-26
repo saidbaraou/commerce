@@ -69,12 +69,12 @@ def create_listing_view(request):
         description = request.POST.get('description')
         bid = request.POST.get('bid')
         image_url = request.POST.get('image_url')
-        category_id = request.POST.get('category')
+        category = request.POST.get('category')
 
-        if not title or not description or not bid or not category_id:
+        if not title or not description or not bid:
                 return HttpResponseBadRequest("All fields are required.")
         try: 
-            category = Category.objects.get(pk=category_id)
+            category = Category.objects.get(pk=category)
         except Category.DoesNotExist:
             return HttpResponseBadRequest("Invalid category.")
         
@@ -82,4 +82,4 @@ def create_listing_view(request):
         listing.save()
         return HttpResponseRedirect('auctions/index.html')
     else:
-        return render(request, 'create_listing.html', {'categories': categories})
+        return render(request, 'auctions/create-listing.html', {'categories': categories})
