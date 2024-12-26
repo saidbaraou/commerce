@@ -3,6 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from models import Category
 
 from .models import User
 
@@ -63,4 +64,5 @@ def register(request):
         return render(request, "auctions/register.html")
     
 def create_listing_view(request):
+    categories = Category
     return render(request, "auctions/create-listing.html")
