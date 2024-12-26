@@ -1,11 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render
 from django.urls import reverse
-from models import Category
 
-from .models import User
+from .models import User, Category
 
 
 def index(request):
@@ -64,5 +63,23 @@ def register(request):
         return render(request, "auctions/register.html")
     
 def create_listing_view(request):
-    categories = Category
-    return render(request, "auctions/create-listing.html")
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        bid = request.POST.get('bid')
+        image_url = request.POST.get('image_url')
+        category_id = request.POST.get('category')
+
+        if not title or not description or not bid or not category_id:
+                return HttpResponseBadRequest("All fields are required.")
+        try: 
+            category = Category.objects.get(pk=category_id)
+        except Category.DoesNotExist:
+            return HttpResponseBadRequest("Invalid category.")
+        
+        listing = listing(title=title, description=description, bid=bid, image_url=image_url, category=category)
+        listing.save()
+        return redirect('auctions/index.html')
+    else:
+        return render(request, 'create_listing.html', {'categories': categories})
