@@ -14,11 +14,16 @@
   <label for="description">Listing Description:</label><br>
   <textarea id="description" name="description" placeholder="Enter a description" required></textarea><br><br>
 
+  <label for="bid">Bid:</label><br>
+  <input type="number" id="bid" name="bid" placeholder="Enter a bid" required><br><br>
+
   <label for="image_url">Image URL:</label><br>
   <input type="url" id="image_url" name="image_url" placeholder="Enter a URL"><br><br>
 
   <label for="category">Category:</label><br>
-  <input type="text" id="title" name="title" placeholder="Enter a category" required><br><br>
+  <input type="text" id="category" name="category" placeholder="Enter a category" required><br><br>
+
+
   <!-- <select id="category" name="category" required>
     {% for category in categories %}
     <option value="{{ category.id }}">{{ category.name }}</option>
