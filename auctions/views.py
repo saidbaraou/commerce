@@ -80,6 +80,6 @@ def create_listing_view(request):
         
         listing = listing(title=title, description=description, bid=bid, image_url=image_url, category=category)
         listing.save()
-        return redirect('auctions/index.html')
+        return HttpResponseRedirect('auctions/index.html')
     else:
         return render(request, 'create_listing.html', {'categories': categories})
