@@ -69,14 +69,17 @@ def create_listing_view(request):
         description = request.POST.get('description')
         bid = request.POST.get('bid')
         image_url = request.POST.get('image_url')
-        category = request.POST.get('category')
+        new_category = request.POST.get('new_category')
 
         if not title or not description or not bid:
                 return HttpResponseBadRequest("All fields are required.")
         try: 
-            category = Category.objects.get(pk=category)
+            category = Category.objects.get(name__iexact=new_category)
         except Category.DoesNotExist:
-            return HttpResponseBadRequest("Invalid category.")
+            try:
+                category = Category.objects.get(name=new_category)
+            except IntegrityError:
+                return HttpResponseBadRequest("This category already exists.")
         
         listing = listing(title=title, description=description, bid=bid, image_url=image_url, category=category)
         listing.save()
