@@ -21,9 +21,12 @@
   <input type="url" id="image_url" name="image_url" placeholder="Enter a URL"><br><br>
 
   <label for="category">Category:</label><br>
-  <input type="text" id="category" name="category" placeholder="Enter a category" required>
-
-  </select><br><br>
+  <select name="category" id="category">
+    {% for category in categories %}
+    <option value="{{ category.id }}">{{ category.name }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
 
 
   <button type="submit">Create Listing</button>
