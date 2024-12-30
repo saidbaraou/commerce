@@ -13,14 +13,6 @@ class Listing(models.Model):
 
     def __str__(self):
         return f"{self.title} Price: {self.price} {self.currency} {self.publication_date}"
-
-class Description(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='description')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='description')
-    text = models.TextField()
-
-    def __str__(self):
-        return f"Comment by {self.user.username}"
     
 class Category(models.Model):
     name = models.CharField(max_length=255)
