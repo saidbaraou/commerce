@@ -27,4 +27,4 @@ class Listing(models.Model):
     Category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     
     def __str__(self):
-        return f"{self.title} Price: {self.price} {self.currency} {self.publication_date}"
+        return f"{self.title}"
