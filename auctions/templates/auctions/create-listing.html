@@ -4,7 +4,7 @@
 
 <h1>Create a Listing</h1>
 
-<form method="post">
+<form action="{% url 'create-listing' %}" method="POST">
   {% csrf_token %}
 
   <label for="title">Title:</label><br>
