@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadReque
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User, Category
+from .models import User, Category, Listing
 
 
 def index(request):
@@ -64,4 +64,7 @@ def register(request):
     
 def create_listing_view(request):
    if request.method == 'GET':
-       return render(request, "auctions/create-listing.html")
+       allCategories = Category.objects.all()
+       return render(request, "auctions/create-listing.html", {
+           "categories": all_categories
+       })
