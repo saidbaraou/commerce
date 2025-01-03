@@ -4,30 +4,24 @@
 
 <h1>Create a Listing</h1>
 
-<form action="{% url 'create-listing' %}" method="POST">
+<form method='post' action=".">
   {% csrf_token %}
 
-  <label for="title">Title:</label><br>
-  <input type="text" id="title" name="title" placeholder="Enter a title" required><br><br>
+  <div>
+    {{ form.as_p }}
+  </div>
 
-  <label for="description">Listing Description:</label><br>
-  <textarea id="description" name="description" placeholder="Enter a description" required></textarea><br><br>
+  {% if form.errors or form.non_field_errors %}
+  <div class="alert alert-danger">
+    {% for field in form %}
+    {{field.errors}}
+    {%endfor%}
 
-  <label for="price">Price:</label><br>
-  <input type="number" id="price" name="price" placeholder="Enter a price" required><br><br>
-
-  <label for="image_url">Image URL:</label><br>
-  <input type="url" id="image_url" name="image_url" placeholder="Enter a URL (Optional)"><br><br>
-
-  <label for="category">Select a category:</label><br>
-  <select name="category" id="category">
-    {% for category in categories %}
-    <option value="{{ category.id }}">{{ category.name }}</option>
-    {% endfor %}
-  </select>
-  <br><br>
+    {{ form.non_field_error }}
+  </div>
 
 
   <button type="submit">Create Listing</button>
 </form>
+{% endif %}
 {% endblock %}

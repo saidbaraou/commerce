@@ -6,7 +6,7 @@ class User(AbstractUser):
     pass
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         ordering = ('name',)
@@ -24,7 +24,7 @@ class Listing(models.Model):
     publication_user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="user")
     publication_date = models.DateField(auto_now=True)
     is_sold = models.BooleanField(default=False)
-    Category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
     
     def __str__(self):
         return f"{self.title}"
