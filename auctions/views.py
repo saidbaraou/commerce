@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User, Category, Listing
+from .forms import AddListingForm
 
 
 def index(request):
@@ -68,3 +70,11 @@ def create_listing_view(request):
        return render(request, "auctions/create-listing.html", {
            "categories": all_categories
        })
+   
+@login_required
+def create_listing_view(request):
+    form = AddListingForm()
+
+    return render(request, 'auctions/create-listing.html', {
+        'form': form
+    })
