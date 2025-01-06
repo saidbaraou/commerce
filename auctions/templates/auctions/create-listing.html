@@ -1,4 +1,5 @@
 {% extends "auctions/layout.html" %}
+{% load widget_tweaks %}
 
 
 {% block body %}
@@ -16,11 +17,9 @@
     {{field.errors}}
     {%endfor%}
 
-    {{ form.non_field_error }}
+    {{ form.non_field_error|add_class:"form-control" }}
   </div>
-
   {% endif %}
-
   <button type="submit" class="btn btn-primary">Create Listing</button>
 </form>
 {% endblock %}
