@@ -64,17 +64,3 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
     
-def create_listing_view(request):
-   if request.method == 'GET':
-       allCategories = Category.objects.all()
-       return render(request, "auctions/create-listing.html", {
-           "categories": all_categories
-       })
-   
-@login_required
-def create_listing_view(request):
-    form = AddListingForm()
-
-    return render(request, 'auctions/create-listing.html', {
-        'form': form
-    })
