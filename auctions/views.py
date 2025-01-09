@@ -63,4 +63,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
-    
+
+@login_required
+def create_listing_view(request):
+    form = AddListingForm()
+
+    return render(request, 'auctions/create-listing.html', {
+        'form': form,
+        'title': 'New listing',
+    })
