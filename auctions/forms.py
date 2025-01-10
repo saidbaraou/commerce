@@ -11,18 +11,23 @@ class AddListingForm(forms.ModelForm):
 
     widgets = {
       'title': forms.TextInput(attrs={
-        'class': INPUT_CLASSES
+        'class': INPUT_CLASSES,
+        'placeholder': 'Title'
       }),
       'description': forms.Textarea(attrs={
-        'class': INPUT_CLASSES
+        'class': INPUT_CLASSES,
+        'placeholder': 'Description'
       }),
       'price': forms.NumberInput(attrs={
-        'class': INPUT_CLASSES
+        'class': INPUT_CLASSES,
+        'placeholder': 'Price'
       }),
       'image_url': forms.TextInput(attrs={
-        'class': INPUT_CLASSES
+        'class': INPUT_CLASSES,
+        'placeholder': 'Image URL'
       }),
       'category': forms.Select(attrs={
-        'class': INPUT_CLASSES
+        'class': INPUT_CLASSES,
+        'placeholder': 'Category'
       })
     }
