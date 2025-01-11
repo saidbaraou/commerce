@@ -10,9 +10,9 @@ class AddListingForm(forms.ModelForm):
 
     widgets = {
       'title': forms.TextInput(attrs={
-        'label':'',
+        'class': INPUT_CLASSES   ,
         'placeholder': 'Title',
-        'class': INPUT_CLASSES   
+        'label': ''
       }),
       'description': forms.Textarea(attrs={
         'class': INPUT_CLASSES,
@@ -31,3 +31,9 @@ class AddListingForm(forms.ModelForm):
         'placeholder': 'Category'
       })
     }
+
+#In order to remove the fields labels
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    for field_name in self.fields:
+      self.fields[field_name].label = False
