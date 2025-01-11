@@ -1,18 +1,18 @@
 from django import forms
-
 from .models import Listing
 
-INPUT_CLASSES = 'form-control w-60 rounded py-2 px-3 birder'
+INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
 
 class AddListingForm(forms.ModelForm):
   class Meta:
     model = Listing
-    fields = ('title', 'description', 'price', 'image_url', 'category',)
+    fields = ('title', 'description', 'price', 'image_url', 'category')
 
     widgets = {
       'title': forms.TextInput(attrs={
-        'class': INPUT_CLASSES,
-        'placeholder': 'Title'
+        'label':'',
+        'placeholder': 'Title',
+        'class': INPUT_CLASSES   
       }),
       'description': forms.Textarea(attrs={
         'class': INPUT_CLASSES,
