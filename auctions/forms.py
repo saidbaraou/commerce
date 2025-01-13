@@ -10,9 +10,8 @@ class AddListingForm(forms.ModelForm):
 
     widgets = {
       'title': forms.TextInput(attrs={
-        'class': INPUT_CLASSES   ,
-        'placeholder': 'Title',
-        'label': ''
+        'class': INPUT_CLASSES,
+        'placeholder': 'Title'
       }),
       'description': forms.Textarea(attrs={
         'class': INPUT_CLASSES,
