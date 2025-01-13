@@ -27,8 +27,7 @@ class AddListingForm(forms.ModelForm):
         'placeholder': 'Image URL'
       }),
       'category': forms.Select(attrs={
-        'class': INPUT_CLASSES,
-        'placeholder': 'Category'
+        'class': INPUT_CLASSES
       })
     }
 
