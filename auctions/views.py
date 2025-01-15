@@ -64,19 +64,21 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
+
 @login_required
 def create_listing_view(request):
-    if request.method == 'POST':
-        new_listing = AddListingForm(request.POST)
+    if request.method == "POST":
+        form = AddListingForm(request.POST)
 
-        if new_listing.is_valid():
+        if form.is_valid():
+            new_listing = form.save()
             new_listing.save()
 
             return HttpResponseRedirect(reverse("index"))
     else:
-        new_listing = AddListingForm()
+        form = AddListingForm()
 
     return render(request, 'auctions/create-listing.html', {
-        'form': new_listing,
+        'form': form,
         'title': 'New listing',
     })
