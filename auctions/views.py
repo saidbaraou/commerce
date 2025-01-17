@@ -69,15 +69,18 @@ def register(request):
 def create_listing_view(request):
     if request.method == "POST":
         form = AddListingForm(request.POST)
-
         if form.is_valid():
-            new_listing = form.save()
-            new_listing.save()
-
-            return HttpResponseRedirect(reverse("index"))
-    else:
-        form = AddListingForm()
-
+            print("Form is VALID!")
+            print(form.cleaned_data) # Check the cleaned data
+            try:
+                new_listing = form.save()
+                return HttpResponseRedirect(reverse("index"))
+            except Exception as e:
+                print(f"Error saving: {e}") # Print any exceptions during save
+        else:
+            print("Form is NOT valid!")
+            print(form.errors) # EXAMINE THESE ERRORS CAREFULLY!!!
+    else: form = AddListingForm()
     return render(request, 'auctions/create-listing.html', {
         'form': form,
         'title': 'New listing',
