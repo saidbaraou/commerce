@@ -85,3 +85,12 @@ def create_listing_view(request):
         'form': form,
         'title': 'New listing',
     })
+
+def display_listings(request):
+    if request.method == "GET":
+        all_categories = Category.objects.all()
+        all_listings = Listing.objects.all()
+        return render(request, "auctions/index.html", {
+            'all_categories': all_categories
+            'all_listings': all_listings
+        })
