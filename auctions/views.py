@@ -81,16 +81,15 @@ def create_listing_view(request):
             print("Form is NOT valid!")
             print(form.errors) # EXAMINE THESE ERRORS CAREFULLY!!!
     else: form = AddListingForm()
-    return render(request, 'auctions/create-listing.html', {
-        'form': form,
-        'title': 'New listing',
+    return render(request, "auctions/create-listing.html", {
+        "form": form,
+        "title": 'New listing',
     })
 
-def display_listings(request):
-    if request.method == "GET":
-        all_categories = Category.objects.all()
-        all_listings = Listing.objects.all()
-        return render(request, "auctions/index.html", {
-            'all_categories': all_categories
-            'all_listings': all_listings
-        })
+def display_active_listings(request):
+    all_categories = Category.objects.all()
+    all_listings = Listing.objects.all()
+    return render(request, "auctions/active-listings.html", {
+        "all_categories": all_categories,
+        "all_listings": all_listings
+    })
