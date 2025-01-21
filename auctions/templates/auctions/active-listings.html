@@ -6,8 +6,12 @@
 <ul>
   {% for listing in all_listings %}
 
-  <li>{{ listing }}</li>
-
+  <li class="list-group-item card-title">{{ listing.title }}</li>
+  {% if listing.image_url%}
+  <img src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
+  {% else %}
+  <p>No image available</p>
+  {% endif %}
   {% endfor %}
 </ul>
 
