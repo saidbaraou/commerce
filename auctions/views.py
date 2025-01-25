@@ -10,7 +10,12 @@ from .forms import AddListingForm
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    all_categories = Category.objects.all()
+    all_listings = Listing.objects.filter(is_sold=False)
+    return render(request, "auctions/index.html", {
+        "all_categories": all_categories,
+        "all_listings": all_listings
+    })
 
 
 def login_view(request):
@@ -84,12 +89,4 @@ def create_listing_view(request):
     return render(request, "auctions/create-listing.html", {
         "form": form,
         "title": 'New listing',
-    })
-
-def display_active_listings(request):
-    all_categories = Category.objects.all()
-    all_listings = Listing.objects.all()
-    return render(request, "auctions/active-listings.html", {
-        "all_categories": all_categories,
-        "all_listings": all_listings
     })

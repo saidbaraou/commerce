@@ -2,10 +2,9 @@
 
 
 {% block body %}
-<h2>Active Listings</h2>
 <h2 class="mb-5">Active Listings</h2>
 
-<form action="" method="POST">
+<form action="" method="POST" class="mb-3">
   {% csrf_token %}
   <select name="category" id="category">
     {% for category in all_categories %}
