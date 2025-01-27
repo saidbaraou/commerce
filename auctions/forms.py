@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing
+from .models import Listing, Category
 
 INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
 
@@ -35,3 +35,6 @@ class AddListingForm(forms.ModelForm):
     super().__init__(*args, **kwargs)
     for field_name in self.fields:
       self.fields[field_name].label = False
+
+class CategoriyFilterForm(forms.Form):
+  Category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="All Categories", required=False)
