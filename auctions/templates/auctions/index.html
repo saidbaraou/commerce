@@ -4,13 +4,26 @@
 {% block body %}
 <h2 class="mb-5">Active Listings</h2>
 
-<form action="" method="POST" class="mb-3">
+<form method="post" action="">
   {% csrf_token %}
-  <select name="category" id="category">
-    {% for category in all_categories %}
-    <option value="{{ category }}">{{ category }}</option>
-    {% endfor %}
-  </select>
+
+  <div>
+    {{ form.as_p }}
+  </div>
+
+</form>
+
+<select class="mb-2">
+  {% for category in all_categories %}
+  <option>{{ category.name }}</option>
+  {% empty %}
+  <option>No products found.</option>
+  {% endfor %}
+</select>
+<form method="GET">
+  {% csrf_token %}
+  {{ form.category }}
+  <button type="submit" class="btn btn-primary">Filter</button>
 </form>
 
 

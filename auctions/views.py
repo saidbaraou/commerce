@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .models import User, Category, Listing
-from .forms import AddListingForm
+from .forms import AddListingForm, CategoryFilterForm
 
 
 def index(request):
@@ -86,7 +86,25 @@ def create_listing_view(request):
             print("Form is NOT valid!")
             print(form.errors) # EXAMINE THESE ERRORS CAREFULLY!!!
     else: form = AddListingForm()
-    return render(request, "auctions/create-listing.html", {
+
+    context = {
         "form": form,
-        "title": 'New listing',
-    })
+        "title": "New listing"
+    }
+    return render(request, "auctions/create-listing.html", context)
+
+def filter_listings_view(request):
+    all_listings = Listing.objects.all()
+    all_categories = Category.objects.all()
+    form = CategoryFilterForm(request.POST)
+
+    if form.is_valid():
+        selected_category = form.cleaned_data['category']
+        if selected_category:  # Check if a category was actually selected
+            listings = all_listings.filter(category=selected_category)
+    
+        context = {
+            'form': form,
+            'listings': listings,
+        }
+        return render(request, 'index.html', context)

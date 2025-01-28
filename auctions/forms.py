@@ -30,11 +30,18 @@ class AddListingForm(forms.ModelForm):
       })
     }
 
-#In order to remove the fields labels
+#In order to remove the fields labels in the UI
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
     for field_name in self.fields:
       self.fields[field_name].label = False
 
-class CategoriyFilterForm(forms.Form):
-  Category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="All Categories", required=False)
+
+class CategoryFilterForm(forms.Form):
+  category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        empty_label="All Categories",  # Add an empty choice
+        widget=forms.Select(attrs={
+            'class': 'form-control w-75 rounded py-2 px-3 border'
+        })
+    )
