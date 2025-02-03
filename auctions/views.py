@@ -10,11 +10,11 @@ from .forms import AddListingForm, CategoryFilterForm
 
 
 def index(request):
-    all_categories = Category.objects.all()
     all_listings = Listing.objects.filter(is_sold=False)
+    all_categories = Category.objects.all()
     return render(request, "auctions/index.html", {
-        "all_categories": all_categories,
-        "all_listings": all_listings
+        "all_listings": all_listings,
+        "all_categories": all_categories
     })
 
 
@@ -93,18 +93,17 @@ def create_listing_view(request):
     }
     return render(request, "auctions/create-listing.html", context)
 
-def filter_listings_view(request):
-    all_listings = Listing.objects.all()
-    all_categories = Category.objects.all()
-    form = CategoryFilterForm(request.POST)
+def filter_category_view(request):
+    if request.method == 'POST':
+        form = CategoryFilterForm(request.POST)
+        all_categories = Category.objects.all() 
+        selected_category = request.POST['category']
+        listings = Listing.objects.filter(is_sold=False, category=selected_category)
+        category = Category.objects.get(category_name = selected_category)
 
-    if form.is_valid():
-        selected_category = form.cleaned_data['category']
-        if selected_category:  # Check if a category was actually selected
-            listings = all_listings.filter(category=selected_category)
-    
         context = {
-            'form': form,
-            'listings': listings,
-        }
-        return render(request, 'index.html', context)
+                'form': form,
+                'listings': listings,
+                'categories': all_categories
+            }
+        return render(request, 'auctions/index.html', context)

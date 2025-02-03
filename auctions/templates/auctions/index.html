@@ -10,7 +10,6 @@
   <div>
     {{ form.as_p }}
   </div>
-
 </form>
 
 <select class="mb-2">
@@ -20,7 +19,9 @@
   <option>No products found.</option>
   {% endfor %}
 </select>
-<form method="GET">
+
+
+<form method="post" action="{% url 'filter_category' %}">
   {% csrf_token %}
   {{ form.category }}
   <button type="submit" class="btn btn-primary">Filter</button>
