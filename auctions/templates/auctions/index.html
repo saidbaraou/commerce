@@ -21,8 +21,7 @@
 </select>
 
 
-<form method="post" action="{% url 'filter_category' %}">
-  {% csrf_token %}
+<form method="get">
   {{ form.category }}
   <button type="submit" class="btn btn-primary">Filter</button>
 </form>
