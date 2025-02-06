@@ -23,7 +23,7 @@ class Listing(models.Model):
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="listings")
     created_at = models.DateField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="category")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name="listings")
     
     def __str__(self):
         return f"""
