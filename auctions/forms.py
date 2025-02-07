@@ -37,12 +37,10 @@ class AddListingForm(forms.ModelForm):
       self.fields[field_name].label = False
 
   
-class CategoryFilterForm(forms.ModelForm):
-  class Meta:
-    model = Category
-    fields = ('name',)
-
-    widgets = {'name': forms.Select(attrs={
-        'class': INPUT_CLASSES
-      })
-      }
+class CategoryFilterForm(forms.Form):
+    category = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        empty_label="All Categories",
+        required=False,  # This is the crucial line!
+        widget=forms.Select(attrs={'class': 'form-control w-75 rounded py-2 px-3 border'})
+    )
