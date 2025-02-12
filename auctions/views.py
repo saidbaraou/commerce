@@ -94,15 +94,21 @@ def create_listing_view(request):
     return render(request, "auctions/create-listing.html", context)
 
 def filter_category_view(request):
-    
-    if request.method == 'GET':
-        all_categories = Category.objects.all()
-        selected_category = request.GET.get('category')
-        category = Category.objects.get(name = selected_category)
-        listings = Listing.objects.filter(is_sold=False, category = category)
 
+    form = CategoryFilterForm()
+    available_listings = Listing.objects.filter(is_sold=False)
+    all_categories = Category.objects.all()
+
+    if request.method == 'GET':
+        selected_category = request.GET.get('category')
+        print(selected_category)
+        filtered_listings = available_listings.filter(category__name=selected_category)
+        print(filtered_listings)
+        
     context = {
-        "listings": listings,
-        "all_categories": all_categories
+        "form": form,
+        "available_listings": available_listings,
+        "categories": all_categories,
+        "filtered_listings": filtered_listings
     }
     return render(request, 'auctions/index.html', context)
