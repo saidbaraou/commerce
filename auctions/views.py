@@ -10,11 +10,11 @@ from .forms import AddListingForm, CategoryFilterForm
 
 
 def index(request):
-    all_listings = Listing.objects.filter(is_sold=False)
-    all_categories = Category.objects.all()
+    listings = Listing.objects.filter(is_sold=False)
+    categories = Category.objects.all()
     return render(request, "auctions/index.html", {
-        "all_listings": all_listings,
-        "all_categories": all_categories
+        "listings": listings,
+        "categories": categories
     })
 
 
@@ -75,16 +75,8 @@ def create_listing_view(request):
     if request.method == "POST":
         form = AddListingForm(request.POST)
         if form.is_valid():
-            print("Form is VALID!")
-            print(form.cleaned_data) # Check the cleaned data
-            try:
                 new_listing = form.save()
                 return HttpResponseRedirect(reverse("index"))
-            except Exception as e:
-                print(f"Error saving: {e}") # Print any exceptions during save
-        else:
-            print("Form is NOT valid!")
-            print(form.errors) # EXAMINE THESE ERRORS CAREFULLY!!!
     else: form = AddListingForm()
 
     context = {
