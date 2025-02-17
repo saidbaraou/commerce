@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import User, Category, Listing
@@ -121,3 +121,10 @@ def watchlist_view(request):
     }
     
     return render(request, 'auctions/index.html', context)
+
+
+def listing_detail_view(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+
+    context = {'listing': listing}
+    return render(request, 'auctions/listing_detail.html', context)
