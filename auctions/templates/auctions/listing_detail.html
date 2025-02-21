@@ -1,1 +1,17 @@
 {% extends "auctions/layout.html" %}
+
+
+{% block body %}
+
+<div class="d-flex justify-content-center align-items-center">
+  <div>
+    <h2 class="mb-5">{{ listing.title }}</h2>
+    <img src="{{ listing.image_url }}" alt="{{ listing.title }}" height="300">
+    <h5>{{ listing.price }}$</h5>
+    <p>{{ listing.description }}</p>
+    <p>Published by : {{ listing.created_by }}</p>
+    <small>On : {{ listing.created_at }}</small>
+  </div>
+</div>
+
+{% endblock %}
