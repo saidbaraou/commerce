@@ -136,3 +136,9 @@ def listing_detail_view(request, listing_id):
         "is_in_watchlist": is_in_watchlist
         }
     return render(request, 'auctions/listing_detail.html', context)
+
+def add_watchlist_view(request, id):
+    return
+
+def remove_watchlist_view(request, id):
+    return
