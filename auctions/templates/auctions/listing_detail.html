@@ -11,6 +11,18 @@
     <p>{{ listing.description }}</p>
     <p>Published by : {{ listing.created_by }}</p>
     <small>On : {{ listing.created_at }}</small>
+    {% if user.is_authenticated %}
+    <form method="POST" action="">
+      {% csrf_token %}
+      {% if listing.is_in_watchlist %}
+      <button>Add to watchlist</button>
+      {% else %}
+      <button>Remove from watchlist</button>
+      {% endif %}
+    </form>
+    {% else %}
+
+    {% endif %}
   </div>
 </div>
 
