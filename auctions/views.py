@@ -12,10 +12,13 @@ from .forms import AddListingForm, CategoryFilterForm
 def index(request):
     listings = Listing.objects.filter(is_sold=False)
     categories = Category.objects.all()
-    return render(request, "auctions/index.html", {
+
+    context = {
         "listings": listings,
         "categories": categories
-    })
+    }
+
+    return render(request, "auctions/index.html", context)
 
 
 def login_view(request):
@@ -26,14 +29,16 @@ def login_view(request):
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
 
+        context = {
+            "message": "Invalid username and/or password."
+        }
+
         # Check if authentication successful
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "auctions/login.html", {
-                "message": "Invalid username and/or password."
-            })
+            return render(request, "auctions/login.html", context)
     else:
         return render(request, "auctions/login.html")
 
