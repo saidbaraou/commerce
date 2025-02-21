@@ -130,7 +130,7 @@ def watchlist_view(request):
 
 def listing_detail_view(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
-    is_in_watchlist = True
+    is_in_watchlist = request.user in listing.watchlist.all()
     context = {
         "listing": listing,
         "is_in_watchlist": is_in_watchlist
@@ -138,7 +138,13 @@ def listing_detail_view(request, listing_id):
     return render(request, 'auctions/listing_detail.html', context)
 
 def add_watchlist_view(request, id):
-    return
+    listing = Listing.objects.get(pk=id)
+    user = request.user
+    listing.watchlist.add(user)
+    return HttpResponseRedirect(reverse("listing_detail",args=(id, )))
 
 def remove_watchlist_view(request, id):
-    return
+    listing = Listing.objects.get(pk=id)
+    user = request.user
+    listing.watchlist.remove(user)
+    return HttpResponseRedirect(reverse("listing_detail", args=(id, )))
