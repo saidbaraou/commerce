@@ -130,8 +130,9 @@ def watchlist_view(request):
 
 def listing_detail_view(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
-
+    is_in_watchlist = True
     context = {
-        "listing": listing
+        "listing": listing,
+        "is_in_watchlist": is_in_watchlist
         }
     return render(request, 'auctions/listing_detail.html', context)

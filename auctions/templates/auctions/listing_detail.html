@@ -3,6 +3,7 @@
 
 {% block body %}
 
+
 <div class="d-flex justify-content-center align-items-center">
   <div>
     <h2 class="mb-5">{{ listing.title }}</h2>
@@ -11,16 +12,20 @@
     <p>{{ listing.description }}</p>
     <p>Published by : {{ listing.created_by }}</p>
     <small>On : {{ listing.created_at }}</small>
+
+
     {% if user.is_authenticated %}
+
     <form method="POST" action="">
       {% csrf_token %}
-      {% if listing.is_in_watchlist %}
-      <button>Add to watchlist</button>
+
+      {% if is_in_watchlist %}
+      <button class="btn btn-outline-danger">Remove from watchlist</button>
       {% else %}
-      <button>Remove from watchlist</button>
+      <button class="btn btn-outline-success">Add to watchlist</button>
       {% endif %}
+
     </form>
-    {% else %}
 
     {% endif %}
   </div>
