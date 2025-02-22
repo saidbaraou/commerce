@@ -5,7 +5,7 @@
 
 
 <div class="d-flex justify-content-center align-items-center">
-  <div class="pb-5">
+  <div class="p-5">
     <h2 class="mb-5">{{ listing.title }}</h2>
     <img src="{{ listing.image_url }}" alt="{{ listing.title }}" height="300">
     <h5>{{ listing.price }}$</h5>
@@ -16,11 +16,11 @@
     {% if user.is_authenticated %}
 
     {% if is_in_watchlist %}
+
     <form method="POST" action="{% url 'remove_watchlist' id=listing.id %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-danger mt-5">Remove from watchlist</button>
     </form>
-
     {% else %}
     <form method="POST" action="{% url 'add_watchlist' id=listing.id %}">
       {% csrf_token %}
@@ -29,7 +29,5 @@
     {% endif %}
 
     {% endif %}
-  </div>
-</div>
 
-{% endblock %}
+    {% endblock %}
