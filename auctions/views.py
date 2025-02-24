@@ -135,7 +135,7 @@ def listing_detail_view(request, listing_id):
     if request.user.is_authenticated:
         try:
             watchlist = Watchlist.objects.get(user=request.user)
-            is_in_watchlist = listing in watchlist.listing.all()
+            is_in_watchlist = listing in watchlist.listings.all()
         except Watchlist.DoesNotExist:
             pass
 
@@ -145,14 +145,22 @@ def listing_detail_view(request, listing_id):
         }
     return render(request, 'auctions/listing_detail.html', context)
 
-def add_watchlist_view(request, id):
-    listing = Listing.objects.get(pk=id)
+@login_required
+def add_watchlist_view(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
     user = request.user
-    listing.watchlist.add(user)
-    return HttpResponseRedirect(reverse("listing_detail",args=(id, )))
+    #get or create the watchlist
+    watchlist, created = Watchlist.objects.get_or_create(user=user)
+    #add the listing to the watchlist 
+    watchlist.listings.add(listing) 
+    return HttpResponseRedirect(reverse("listing_detail",args=(listing_id, )))
 
-def remove_watchlist_view(request, id):
-    listing = Listing.objects.get(pk=id)
+@login_required
+def remove_watchlist_view(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
     user = request.user
-    listing.watchlist.remove(user)
-    return HttpResponseRedirect(reverse("listing_detail", args=(id, )))
+    #get or create the watchlist
+    watchlist, created = Watchlist.objects.get_or_create(user=user)
+    #remove the listing from the watchlist 
+    watchlist.listings.remove(listing) 
+    return HttpResponseRedirect(reverse("listing_detail",args=(listing_id, )))

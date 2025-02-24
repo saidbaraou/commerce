@@ -15,12 +15,12 @@
 
     {% if is_in_watchlist %}
 
-    <form method="POST" action="{% url 'remove_watchlist' id=listing.id %}">
+    <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-danger mt-5">Remove from watchlist</button>
     </form>
     {% else %}
-    <form method="POST" action="{% url 'add_watchlist' id=listing.id %}">
+    <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-success">Add to watchlist</button>
     </form>
