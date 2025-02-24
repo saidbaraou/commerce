@@ -1,6 +1,5 @@
 {% extends "auctions/layout.html" %}
 
-
 {% block body %}
 
 
@@ -11,7 +10,6 @@
     <h5>{{ listing.price }}$</h5>
     <p>{{ listing.description }} <br></p>
     <p>Published by : {{ listing.created_by }} <br> On : {{ listing.created_at }}</p>
-
 
     {% if user.is_authenticated %}
 

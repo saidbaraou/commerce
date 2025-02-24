@@ -130,7 +130,15 @@ def watchlist_view(request):
 
 def listing_detail_view(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
-    is_in_watchlist = request.user in listing.watchlist.all()
+    is_in_watchlist = False
+
+    if request.user.is_authenticated:
+        try:
+            watchlist = Watchlist.objects.get(user=request.user)
+            is_in_watchlist = listing in watchlist.listing.all()
+        except Watchlist.DoesNotExist:
+            pass
+
     context = {
         "listing": listing,
         "is_in_watchlist": is_in_watchlist
