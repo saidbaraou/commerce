@@ -4,44 +4,6 @@
 {% block body %}
 <h2 class="mb-5">Watchlist</h2>
 
-<form method="GET" action="{% url 'filter_category' %}" class="mb-3">
 
-  <select name="category" class="p-1">
-    <option value="">All Categories</option>
-    {% for category in categories %}
-    <option value="{{ category }}">{{ category.name }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" class="btn btn-primary">Filter</button>
-</form>
 
-<div class="row gap-3 d-flex justify-content-around">
-  {% for listing in listings %}
-
-  <div class="card border pt-2" style="width: 18rem;">
-    {% if listing.image_url%}
-    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
-    {% else %}
-    <img
-      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
-      class="card-img-top" alt="no image available">
-    {% endif %}
-
-    <div class="card-body">
-      <h5 class="card-title">{{ listing.title }}</h5>
-      <p class="card-text">{{ listing.description }}
-      </p>
-      <p class="card-text">{{ listing.price }}$
-      </p>
-
-      <a href="#" class="btn btn-primary">See Item</a>
-    </div>
-
-  </div>
-  {% empty %}
-  <div>
-    No item available for this category
-  </div>
-  {% endfor %}
-
-  {% endblock %}
+{% endblock %}

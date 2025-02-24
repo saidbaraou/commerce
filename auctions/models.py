@@ -33,3 +33,10 @@ class Listing(models.Model):
     Price: {self.price}$ 
     {self.image_url} 
     """
+
+class Watchlist(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='watchlist')
+    listings= models.ManyToManyField(Listing, related_name='watchlists')
+
+    def __str__(self):
+        return f"{self.user.username}'s Watchlist"
