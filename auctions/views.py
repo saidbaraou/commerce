@@ -110,22 +110,7 @@ def filter_category_view(request):
     return render(request, 'auctions/index.html', context)
 
 def watchlist_view(request):
-    form = CategoryFilterForm()
-    available_listings = Listing.objects.filter(is_sold=False)
-    categories = Category.objects.all()
-    if request.method == 'GET':
-        selected_category = request.GET.get('category')
-        print(selected_category)
-        listings = available_listings.filter(category__name=selected_category)
-        print(listings)
-        
-    context = {
-        "form": form,
-        "categories": categories,
-        "listings": listings
-    }
-    
-    return render(request, 'auctions/index.html', context)
+    return
 
 
 def listing_detail_view(request, listing_id):
