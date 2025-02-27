@@ -109,8 +109,24 @@ def filter_category_view(request):
     }
     return render(request, 'auctions/index.html', context)
 
+def get_watchlist_listing(user):
+
+    try:
+        watchlist = Watchlist.objects.get(user=user)
+        listings = watchlist.listings.all()
+        return listings
+    except Watchlist.DoesNotExist:
+        message = "There's no listing in your watchlist"
+        return message
+    
 def watchlist_view(request):
-    return
+    user = request.user
+    watchlist_listings = get_watchlist_listing(user)
+
+    context = {
+        "watchlist_listings": watchlist_listings,
+    }
+    return render(request, "auctions/watchlist.html", context)
 
 
 def listing_detail_view(request, listing_id):
