@@ -2,14 +2,40 @@
 
 
 {% block body %}
-<h2 class="mb-5">Watchlist</h2>
+<h2 class="mb-5">Watchlist of {{user.username}}</h2>
 
 {% if watchlist_listings %}
 
-{% for listings in watchlist_listings %}
-<p>{{listings.title}}</p>
-{% endfor %}
+<div class="row gap-3 d-flex justify-content-around">
+  {% for listing in watchlist_listings %}
+  <div class="card border pt-2" style="width: 18rem;">
+    {% if listing.image_url%}
+    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
+    {% else %}
+    <img
+      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
+      class="card-img-top" alt="no image available">
+    {% endif %}
 
+    <div class="card-body">
+      <h5 class="card-title">{{ listing.title }}</h5>
+      <p class="card-text">{{ listing.description }}
+      </p>
+      <p class="card-text">${{ listing.price }}
+      </p>
+
+      <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary">See details</a>
+    </div>
+
+  </div>
+  {% empty %}
+  <div>
+    No item available for this category
+  </div>
+  {% endfor %}
+
+
+</div>
 {% endif %}
 
 <p>{{listings}}</p>
