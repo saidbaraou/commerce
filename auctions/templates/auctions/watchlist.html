@@ -4,7 +4,7 @@
 {% block body %}
 <h2 class="mb-5">Watchlist of {{user.username}}</h2>
 
-{% if watchlist_listings %}
+
 
 <div class="row gap-3 d-flex justify-content-around">
   {% for listing in watchlist_listings %}
@@ -30,13 +30,13 @@
   </div>
   {% empty %}
   <div>
-    No item available for this category
+    No listing available
   </div>
   {% endfor %}
 
 
 </div>
-{% endif %}
+
 
 <p>{{listings}}</p>
 
