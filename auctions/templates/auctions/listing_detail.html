@@ -15,7 +15,9 @@
     {% endif %}
     <h5>${{ listing.price }}</h5>
     <p>{{ listing.description }} <br></p>
-    <p>Published by : {{ listing.created_by }} <br> On : {{ listing.created_at }}</p>
+    <h5>Details</h5>
+    <p>Listed by : {{ listing.created_by }} <br> On : {{ listing.created_at }} <br> Category : {{ listing.category }}
+    </p>
 
     {% if user.is_authenticated %}
 
