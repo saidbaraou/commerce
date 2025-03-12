@@ -23,9 +23,15 @@
       <strong></strong>
       <p>{{listing.description}}</p>
       <p><strong>${{listing.price}}</strong></p>
-      <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary">See details</a>
+      <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3">See details</a>
+      <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger mt-3">Remove from watchlist</button>
+      </form>
     </div>
+
   </li>
+
   <hr>
   </div>
 </ul>
