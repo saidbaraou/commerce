@@ -1,5 +1,17 @@
 {% extends "auctions/layout.html" %}
 
+<style>
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+</style>
+
 {% block body %}
 
 
@@ -13,8 +25,18 @@
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
-    <h5>${{ listing.price }}</h5>
     <p>{{ listing.description }} <br></p>
+    <h5>${{ listing.price }}</h5>
+
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div class="d-flex align-items-center input-group mb-3">
+        <input type="number" class="form-control me-2" style="-webkit-appearance: none; -moz-appearance: textfield;"
+          placeholder="bid">
+        <button type="submit" class="btn btn-primary">Place Bid</button>
+      </div>
+    </form>
+
     <h5>Details</h5>
     <p>Listed by : {{ listing.created_by }} <br> On : {{ listing.created_at }} <br> Category : {{ listing.category }}
     </p>
