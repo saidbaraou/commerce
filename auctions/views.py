@@ -119,12 +119,24 @@ def get_watchlist_listing(user):
         message = "There's no listing in your watchlist"
         return message
     
+def get_watchlist_length(user):
+
+    try:
+        watchlist = Watchlist.objects.get(user=user)
+        watchlist_number = watchlist.listings.count()
+        return watchlist_number
+    except Watchlist.DoesNotExist:
+        watchlist_number = 0
+        return watchlist_number
+    
 def watchlist_view(request):
     user = request.user
     watchlist_listings = get_watchlist_listing(user)
 
+    watchlist_number = get_watchlist_length(user)
     context = {
         "watchlist_listings": watchlist_listings,
+        "watchlist_number": watchlist_number
     }
     return render(request, "auctions/watchlist.html", context)
 
