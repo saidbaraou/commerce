@@ -35,7 +35,12 @@
             <a class="nav-link" href="{% url 'create_listing' %}">Create a listing</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
+            <a class="nav-link" href="{% url 'watchlist' %}">Watchlist
+                {% if user.is_authenticated %}
+                <span class="text-white bg-primary rounded-circle p-2">
+                    {{ watchlist_number}}</span>
+                {% endif %}
+            </a>
         </li>
         {% else %}
         <li class="nav-item">
