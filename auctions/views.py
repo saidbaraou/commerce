@@ -12,10 +12,13 @@ from .forms import AddListingForm, CategoryFilterForm
 def index(request):
     listings = Listing.objects.filter(is_sold=False)
     categories = Category.objects.all()
+    user = request.user
+    watchlist_number = get_watchlist_length(user)
 
     context = {
         "listings": listings,
-        "categories": categories
+        "categories": categories,
+        "watchlist_number": watchlist_number
     }
 
     return render(request, "auctions/index.html", context)

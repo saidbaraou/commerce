@@ -36,10 +36,14 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'watchlist' %}">Watchlist
-                {% if user.is_authenticated %}
+
+                {% if watchlist_number %}
                 <span class="text-white bg-primary rounded-circle p-2">
                     {{ watchlist_number}}</span>
+                {% else %}
+                <span></span>
                 {% endif %}
+
             </a>
         </li>
         {% else %}
