@@ -21,11 +21,12 @@
 
   <div class="card border pt-2" style="width: 18rem;">
     {% if listing.image_url%}
-    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
+    <img src="{{ listing.image_url }}" alt="{{listing.title}}" class="card-img-top img-fluid"
+      style="width: 300px; height: 200px; object-fit: contain;">
     {% else %}
     <img
-      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
-      class="card-img-top" alt="no image available">
+      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.DwCrm6CqdEFxMyAz_-94jQAAAA%26pid%3DApi&f=1&ipt=01e820553a8b2c0dcdf0dd2fbd565eec0ccf2b4ffd90b273400d39efd5fc850d&ipo=images"
+      alt="no image available" class="card-img-top img-fluid" style="width: 300px; height: 200px; object-fit: contain;">
     {% endif %}
 
     <div class="card-body">

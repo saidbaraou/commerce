@@ -112,6 +112,7 @@ def filter_category_view(request):
     }
     return render(request, 'auctions/index.html', context)
 
+
 def get_watchlist_listing(user):
 
     try:
@@ -121,6 +122,7 @@ def get_watchlist_listing(user):
     except Watchlist.DoesNotExist:
         message = "There's no listing in your watchlist"
         return message
+    
     
 def get_watchlist_length(user):
 
