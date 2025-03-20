@@ -100,10 +100,9 @@ def filter_category_view(request):
     categories = Category.objects.all()
 
     if request.method == 'GET':
+        
         selected_category = request.GET.get('category')
-        print(selected_category)
         listings = available_listings.filter(category__name=selected_category)
-        print(listings)
          
     context = {
         "form": form,
