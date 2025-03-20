@@ -80,6 +80,9 @@ def register(request):
 
 @login_required
 def create_listing_view(request):
+    user = request.user
+    watchlist_number = get_watchlist_length(user)
+
     if request.method == "POST":
         form = AddListingForm(request.POST)
         if form.is_valid():
@@ -89,7 +92,8 @@ def create_listing_view(request):
 
     context = {
         "form": form,
-        "title": "New listing"
+        "title": "New listing",
+        "watchlist_number": watchlist_number
     }
     return render(request, "auctions/create-listing.html", context)
 
@@ -146,10 +150,13 @@ def watchlist_view(request):
 
 
 def listing_detail_view(request, listing_id):
+    
     listing = get_object_or_404(Listing, pk=listing_id)
     is_in_watchlist = False
 
     if request.user.is_authenticated:
+        user = request.user
+        watchlist_number = get_watchlist_length(user)
         try:
             watchlist = Watchlist.objects.get(user=request.user)
             is_in_watchlist = listing in watchlist.listings.all()
@@ -158,7 +165,8 @@ def listing_detail_view(request, listing_id):
 
     context = {
         "listing": listing,
-        "is_in_watchlist": is_in_watchlist
+        "is_in_watchlist": is_in_watchlist,
+        "watchlist_number": watchlist_number
         }
     return render(request, 'auctions/listing_detail.html', context)
 
