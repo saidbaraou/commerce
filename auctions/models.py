@@ -24,7 +24,7 @@ class Listing(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="listings")
     created_at = models.DateField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category", default=6)
-    starting_bid = models.DecimalField(max_digits=10, decimal_places=2)
+    starting_bid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     current_bid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="won_listing")
     
@@ -43,3 +43,4 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Watchlist"
+
