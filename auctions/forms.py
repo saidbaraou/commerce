@@ -44,3 +44,6 @@ class CategoryFilterForm(forms.Form):
         required=False,  # This is the crucial line!
         widget=forms.Select(attrs={'class': 'form-control w-75 rounded py-2 px-3 border'})
     )
+
+class BidForm(forms.Form):
+  amount = forms.DecimalField(label="Bid Amount")
