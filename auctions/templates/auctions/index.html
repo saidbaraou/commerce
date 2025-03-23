@@ -18,7 +18,7 @@
 
 
 <div
-  class=" row d-flex flex-wrap gap-3 {% if items|length == 1 %}justify-content-start{% else %}justify-content-center{% endif %}">
+  class=" row d-flex flex-wrap gap-3 {% if items|length < 4  %}justify-content-start{% else %}justify-content-center{% endif %} ">
   {% for listing in listings %}
 
   <div class="card border pt-2" style="width: 18rem;">
@@ -49,4 +49,5 @@
     {% endfor %}
 
   </div>
+
   {% endblock %}
