@@ -12,6 +12,19 @@ from .forms import AddListingForm, CategoryFilterForm
 def index(request):
     listings = Listing.objects.filter(is_sold=False)
     categories = Category.objects.all()
+
+    context = {
+        "listings": listings,
+        "categories": categories
+    }
+
+    return render(request, "auctions/index.html", context)
+
+
+@login_required
+def authenticated_user_index(request):
+    listings = Listing.objects.filter(is_sold=False)
+    categories = Category.objects.all()
     user = request.user
     watchlist_number = get_watchlist_length(user)
 
