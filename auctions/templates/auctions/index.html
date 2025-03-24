@@ -5,8 +5,8 @@
 <h2 class="mb-5">Active Listings</h2>
 
 <form method="GET" action="{% url 'filter_category' %}" class="mb-3 p-2">
-  <div>
-    <select name="category" class="p-1">
+  <div class="input-group">
+    <select name="category" class="p-1 form-control w-50">
       <option value="All Categories">All Categories</option>
       {% for category in categories %}
       <option value="{{ category }}">{{ category.name }}</option>
