@@ -127,8 +127,12 @@ def filter_category_view(request):
     if request.method == 'GET':
         
         selected_category = request.GET.get('category')
-        listings = available_listings.filter(category__name=selected_category)
-         
+        
+        if selected_category != "all":
+            listings = available_listings.filter(category__name=selected_category)
+        else:
+            listings = available_listings
+
     context = {
         "form": form,
         "categories": categories,

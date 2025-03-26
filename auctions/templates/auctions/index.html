@@ -10,7 +10,7 @@
       <div class="col-12 col-md-6">
         <div class="input-group">
           <select name="category" class="form-control">
-            <option value="All Categories">All Categories</option>
+            <option value="all">All Categories</option>
             {% for category in categories %}
             <option value="{{ category }}">{{ category.name }}</option>
             {% endfor %}
@@ -21,7 +21,6 @@
     </div>
   </div>
 </form>
-
 
 <div class="container">
   <div class="row">
