@@ -10,19 +10,26 @@ from .forms import AddListingForm, CategoryFilterForm
 
 
 def index(request):
+    if request.user.is_authenticated:
+        return welcome_view(request)
+    else:
+        return home_view(request)
+
+def home_view(request):
+    """View for logged-out users"""
     listings = Listing.objects.filter(is_sold=False)
     categories = Category.objects.all()
 
     context = {
         "listings": listings,
-        "categories": categories
+        "categories": categories,
     }
 
-    return render(request, "auctions/index.html", context)
-
+    return render(request, 'auctions/home.html', context)
 
 @login_required
-def authenticated_user_index(request):
+def welcome_view(request):
+    """View for logged-in users"""
     listings = Listing.objects.filter(is_sold=False)
     categories = Category.objects.all()
     user = request.user
@@ -31,10 +38,11 @@ def authenticated_user_index(request):
     context = {
         "listings": listings,
         "categories": categories,
-        "watchlist_number": watchlist_number
+         "watchlist_number": watchlist_number
     }
 
-    return render(request, "auctions/index.html", context)
+    return render(request, 'auctions/welcome.html', context)
+
 
 
 def login_view(request):
