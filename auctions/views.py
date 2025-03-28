@@ -214,3 +214,7 @@ def remove_watchlist_view(request, listing_id):
     #remove the listing from the watchlist 
     watchlist.listings.remove(listing) 
     return HttpResponseRedirect(reverse("watchlist"))
+
+
+def publish_bid_view(request):
+    return
