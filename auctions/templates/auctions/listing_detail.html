@@ -30,6 +30,19 @@
 
     <form method="POST" action="">
       {% csrf_token %}
+      <div>
+        {{ form.as_p }}
+      </div>
+      {% if form.errors or form.non_field_errors %}
+      <div class="invalid-feedback">
+        {% for field in form %}
+        {{ field.errors }}
+        {% endfor %}
+
+        {{ form.non_field_errors }}
+      </div>
+
+      {% endif %}
       <div class="d-flex align-items-center input-group mb-3">
         <input type="number" class="form-control " style="-webkit-appearance: none; -moz-appearance: textfield;"
           placeholder="bid">

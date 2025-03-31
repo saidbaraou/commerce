@@ -216,5 +216,6 @@ def remove_watchlist_view(request, listing_id):
     return HttpResponseRedirect(reverse("watchlist"))
 
 
-def publish_bid_view(request):
+def place_bid_view(request):
+    
     return

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing, Category
+from .models import Listing, Category, Bid
 
 INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
 
@@ -46,4 +46,15 @@ class CategoryFilterForm(forms.Form):
     )
 
 class BidForm(forms.Form):
-  amount = forms.DecimalField(label="Bid Amount")
+    class Meta:
+      model = Bid
+      fields = ('amount')
+
+      widgets = {
+        'title': forms.TextInput(attrs={
+          'class': INPUT_CLASSES,
+          'placeholder': 'Bid Amount'
+        })
+      }
+
+  # amount = forms.DecimalField(label="Bid Amount")
