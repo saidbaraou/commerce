@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import User, Category, Listing, Watchlist
-from .forms import AddListingForm, CategoryFilterForm
+from .forms import AddListingForm, CategoryFilterForm, BidForm
 
 
 def index(request):
@@ -216,6 +216,21 @@ def remove_watchlist_view(request, listing_id):
     return HttpResponseRedirect(reverse("watchlist"))
 
 
-def place_bid_view(request):
-    
-    return
+@login_required
+def place_bid(request):
+    user = request.user
+    watchlist_number = get_watchlist_length(user)
+
+    if request.method == "POST":
+        form = BidForm(request.POST)
+        if form.is_valid():
+                new_bid = form.save()
+                return HttpResponseRedirect(reverse("listing-detail"))
+    else: form = BidForm()
+
+    context = {
+        "form": form,
+        "title": "New Listing",
+        "watchlist_number": watchlist_number
+    }
+    return render(request, "auctions/listing-detail.html", context)
