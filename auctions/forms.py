@@ -41,7 +41,7 @@ class CategoryFilterForm(forms.Form):
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         empty_label="All Categories",
-        required=False,  # This is the crucial line!
+        required=False,
         widget=forms.Select(attrs={'class': 'form-control w-75 rounded py-2 px-3 border'})
     )
 
