@@ -28,12 +28,6 @@
         </li>
         {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'create_listing' %}">Create a listing</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{% url 'watchlist' %}">Watchlist
                 {% if watchlist_number %}
                 <span class=" text-center text-secondary fw-bold rounded-circle">
@@ -43,6 +37,15 @@
                 {% endif %}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'create_listing' %}">Create a listing</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+        </li>
+
+
         {% else %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Log In</a>
