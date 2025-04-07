@@ -39,8 +39,8 @@
 
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ listing.title }}</h5>
-          <p class="card-text">{{ listing.description }}</p>
-          <p class="card-text text-black">${{ listing.price }}$</p>
+          <p class="card-text text-black">${{ listing.price }}</p>
+          <small class="text-secondary">Created {{ listing.created_at }}</small>
           <div class="text-center">
             <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-5 w-75">See
               details</a>
