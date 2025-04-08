@@ -62,12 +62,12 @@
 
     <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
       {% csrf_token %}
-      <button type="submit" class="btn btn-outline-danger mt-5">Remove from watchlist</button>
+      <button type="submit" class="btn btn-outline-danger mt-3">Remove from watchlist</button>
     </form>
     {% else %}
     <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
       {% csrf_token %}
-      <button type="submit" class="btn btn-outline-success">Add to watchlist</button>
+      <button type="submit" class="btn btn-outline-success mt-3">Add to watchlist</button>
     </form>
     {% endif %}
 
