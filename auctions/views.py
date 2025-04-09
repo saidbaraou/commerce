@@ -2,10 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
-from .models import User, Category, Listing, Watchlist
+from .models import User, Category, Listing, Watchlist, Bid
 from .forms import AddListingForm, CategoryFilterForm, BidForm
 
 
@@ -177,6 +177,7 @@ def watchlist_view(request):
 def listing_detail_view(request, listing_id):
     
     listing = get_object_or_404(Listing, pk=listing_id)
+    bids = Bid.objects.filter(listing=listing).order_by('-amount')
     is_in_watchlist = False
 
     if request.user.is_authenticated:
@@ -187,11 +188,23 @@ def listing_detail_view(request, listing_id):
             is_in_watchlist = listing in watchlist.listings.all()
         except Watchlist.DoesNotExist:
             pass
+    if request.method == "POST":
+        form = BidForm(request.POST)
+        if form.is_valid():
+            new_bid = form.save(commit=False)
+            new_bid.user = request.user
+            new_bid.listing = listing
+            new_bid.save()
+            return redirect(reverse("listing-detail", args=[listing_id]))
+    else:
+        form = BidForm()
 
     context = {
         "listing": listing,
         "is_in_watchlist": is_in_watchlist,
-        "watchlist_number": watchlist_number
+        "watchlist_number": watchlist_number,
+        "bids": bids,
+        "form": form,
         }
     return render(request, 'auctions/listing_detail.html', context)
 
@@ -214,23 +227,3 @@ def remove_watchlist_view(request, listing_id):
     #remove the listing from the watchlist 
     watchlist.listings.remove(listing) 
     return HttpResponseRedirect(reverse("watchlist"))
-
-
-@login_required
-def place_bid(request):
-    user = request.user
-    watchlist_number = get_watchlist_length(user)
-
-    if request.method == "POST":
-        form = BidForm(request.POST)
-        if form.is_valid():
-                new_bid = form.save()
-                return HttpResponseRedirect(reverse("listing-detail"))
-    else: form = BidForm()
-
-    context = {
-        "form": form,
-        "title": "New Listing",
-        "watchlist_number": watchlist_number
-    }
-    return render(request, "auctions/listing-detail.html", context)
