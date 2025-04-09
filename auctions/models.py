@@ -48,10 +48,10 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_bids")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    created_on = models.DateTimeField(auto_now_add=True)
+    timsestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"""
     {self.user.username}
-    bid ${self.amount} on {self.listing.title} by {self.user.username} on {self.created_on}
+    bid ${self.amount} on {self.listing.title} by {self.user.username} on {self.timestamp}
     """
