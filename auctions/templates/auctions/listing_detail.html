@@ -16,7 +16,7 @@
 
 <div class="d-flex justify-content-center align-items-center">
   <div class="p-5">
-    <h2 class="mb-5">{{ listing.title }}</h2>
+
     {% if listing.image_url%}
     <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
     {% else %}
@@ -24,8 +24,10 @@
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
+    <h2 class="mb-3">{{ listing.title }}</h2>
+    <h3>${{ listing.price }}</h3>
+    <h5 class="mt-3">Description :</h5>
     <p>{{ listing.description }} <br></p>
-    <h5>${{ listing.price }}</h5>
 
     {% if user.is_authenticated %}
 
@@ -51,8 +53,10 @@
 
     {% endif %}
 
-    <h5 class="mt-5">Details :</h5>
-    <p>Listed by : {{ listing.created_by }} <br> On : {{ listing.created_at }} <br> Category : {{ listing.category }}
+
+    <p class="text-secondary mt-5">Listed by {{ listing.created_by }} -
+      On {{ listing.created_at }} -
+      in {{ listing.category }}'s category
     </p>
 
     {% if user.is_authenticated %}
