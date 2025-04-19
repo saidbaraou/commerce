@@ -182,7 +182,12 @@ def listing_detail_view(request, listing_id):
 
     if request.user.is_authenticated:
        user = request.user
-       watchlist_number = get_watchlist_length(user)   
+       watchlist_number = get_watchlist_length(user)
+       try:
+           watchlist = Watchlist.objects.get(user=user)
+           is_in_watchlist = listing in watchlist.listings.all()
+       except Watchlist.DoesNotExist:
+           pass   
 
     context = {
             "listing": listing,
