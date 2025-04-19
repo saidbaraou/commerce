@@ -61,7 +61,7 @@
 
     {% if user.is_authenticated %}
 
-    {% if is_in_watchlist %}
+    {% if listing.is_in_watchlist %}
 
     <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
       {% csrf_token %}
