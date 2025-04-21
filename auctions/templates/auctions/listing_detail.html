@@ -25,8 +25,8 @@
       class="card-img-top" alt="no image available">
     {% endif %}
     <h3>${{ listing.price }}</h3>
-    <h5 class="mt-3">Description :</h5>
-    <p>{{ listing.description }} <br></p>
+    <h5>Description :</h5>
+    <p class="mb-5">{{ listing.description }} </p>
 
     {% if user.is_authenticated %}
 
@@ -34,7 +34,7 @@
       {% csrf_token %}
       <div>
         {{ form.as_p }}
-        <div class="d-flex align-items-center input-group mb-3">
+        <div class="d-flex align-items-center input-group mb-5">
           <input type="number" class="form-control" name="{{ form.amount.name }}" placeholder="bid"
             style="-webkit-appearance: none; -moz-appearance: textfield;">
           <button type="submit" class="btn btn-primary">Place Bid</button>
@@ -52,12 +52,6 @@
 
     {% endif %}
 
-
-    <p class="text-secondary mt-5">Listed by {{ listing.created_by }} -
-      On {{ listing.created_at }} -
-      in {{ listing.category }}'s category
-    </p>
-
     {% if user.is_authenticated %}
 
     {% if is_in_watchlist %}
@@ -74,5 +68,11 @@
     {% endif %}
 
     {% endif %}
+
+    <hr class="mt-5">
+    <p class="text-secondary">Listed by {{ listing.created_by }} -
+      On {{ listing.created_at }} -
+      in {{ listing.category }}'s category
+    </p>
 
     {% endblock %}
