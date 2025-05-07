@@ -1,6 +1,6 @@
 # Commerce
 
-This project is an implementation of an e-commerce website using Django.
+This project is an implementation of a marketplace website using Django.
 
 ## Overview
 
@@ -56,10 +56,10 @@ To run this project locally, follow these steps:
 
 * **Listings:** Display of active and closed auction listings.
 * **Product Page:** Detailed information about each listed item.
-* **Bidding:** System for placing bids on auction items.
 * **Create Listing:** Option for logged-in users to create new auction listings.
 * **Watchlist:** Ability for users to track items they are interested in.
-* **Categories:** Organization of listings into different categories.
+* **Categories:** View listings from different categories by filtering them.
+* **Bidding:** System for placing bids on auction items.
 * **Admin Interface:** Django's built-in admin interface for managing the application.
 
 ## Technologies Used
