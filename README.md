@@ -2,7 +2,7 @@
 
 This project is an implementation of a marketplace website using Django.
 
-## Overview
+## 🔍 Overview
 
 This web application allows users to:
 
@@ -12,9 +12,9 @@ This web application allows users to:
 * Create their own auction listings.
 * Add items to a watchlist.
 
-## Getting Started
+## ➡️ Getting Started
 
-To run this project locally, follow these steps:
+⚙️ To run this project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
@@ -52,7 +52,7 @@ To run this project locally, follow these steps:
 
 7.  **Open your web browser and navigate to `http://127.0.0.1:8000/` to view the application.**
 
-## Key Features
+## ✨ Features
 
 * **Listings:** Display of active and closed auction listings.
 * **Product Page:** Detailed information about each listed item.
@@ -62,13 +62,13 @@ To run this project locally, follow these steps:
 * **Bidding:** System for placing bids on auction items.
 * **Admin Interface:** Django's built-in admin interface for managing the application.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 ![image](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
 ![image](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![image](https://img.shields.io/badge/Sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-## Further Development
+## ➕ Further Development
 
 This project could be further enhanced with features such as:
 
