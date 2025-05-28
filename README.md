@@ -11,6 +11,7 @@ This web application allows users to:
 * Bid on auction listings.
 * Create their own auction listings.
 * Add items to a watchlist.
+* Comment on listings.
 
 ## ➡️ Getting Started
 
