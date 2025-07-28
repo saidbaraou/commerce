@@ -4,35 +4,35 @@
 {% block body %}
 <h2 class="mb-5">{{user.username}}'s watchlist</h2>
 
-<ul class="list-unstyled item-list">
-  {% for listing in watchlist_listings %}
-  <div class="container"></div>
-  <li class="item d-flex align-items-start">
-    {% if listing.image_url%}
-    <img class="me-5" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
-    {% else %}
-    <img class="me-5"
-      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
-      alt="no image available" width="200">
-    {% endif %}
-    <div class="item-info">
-      <h3>{{listing.title}}</h3>
-      <strong></strong>
-      <p>{{listing.description}}</p>
-      <p><strong>${{listing.price}}</strong></p>
-      <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3">See details</a>
-      <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-danger mt-3">Remove from watchlist</button>
-      </form>
-    </div>
+<div class="container">
+  <ul class="list-unstyled item-list">
+    {% for listing in watchlist_listings %}
 
-  </li>
+    <li class="item d-flex align-items-start">
+      {% if listing.image_url%}
+      <img class="me-5" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
+      {% else %}
+      <img class="me-5"
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
+        alt="no image available" width="200">
+      {% endif %}
+      <div class="item-info">
+        <h3>{{listing.title}}</h3>
+        <strong></strong>
+        <p>{{listing.description}}</p>
+        <p><strong>${{listing.price}}</strong></p>
+        <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3">See details</a>
+        <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger mt-3">Remove from watchlist</button>
+        </form>
+      </div>
 
-  <hr>
-  </div>
-</ul>
+    </li>
 
+    <hr>
+  </ul>
+</div>
 
 {% empty %}
 <div>

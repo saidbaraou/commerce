@@ -148,8 +148,7 @@ def get_watchlist_listing(user):
         listings = watchlist.listings.all()
         return listings
     except Watchlist.DoesNotExist:
-        message = "There's no listing in your watchlist"
-        return message
+        return Listing.objects.none()
     
     
 def get_watchlist_length(user):
