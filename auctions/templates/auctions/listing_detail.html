@@ -14,9 +14,8 @@
 
 {% block body %}
 
-
 <div class="d-flex justify-content-center align-items-center">
-  <div class="p-5">
+  <div class="p-3">
     <h2 class="mb-5">{{ listing.title }}</h2>
     {% if listing.image_url%}
     <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
@@ -25,36 +24,33 @@
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
-    <p>{{ listing.description }} <br></p>
-    <h5>${{ listing.price }}</h5>
+    <h3>${{ listing.price }}</h3>
+    <h5>Description :</h5>
+    <p class="mb-5">{{ listing.description }} </p>
 
-
+    {% if user.is_authenticated %}
 
     <form method="POST" action="">
       {% csrf_token %}
       <div>
         {{ form.as_p }}
+        <div class="d-flex align-items-center input-group mb-5">
+          <input type="number" class="form-control" name="{{ form.amount.name }}" placeholder="bid"
+            style="-webkit-appearance: none; -moz-appearance: textfield;">
+          <button type="submit" class="btn btn-primary">Place Bid</button>
+        </div>
       </div>
       {% if form.errors or form.non_field_errors %}
       <div class="invalid-feedback">
         {% for field in form %}
         {{ field.errors }}
         {% endfor %}
-
         {{ form.non_field_errors }}
       </div>
-
       {% endif %}
-      <div class="d-flex align-items-center input-group mb-3">
-        <input type="number" class="form-control " style="-webkit-appearance: none; -moz-appearance: textfield;"
-          placeholder="bid">
-        <button type="submit" class="btn btn-primary">Place Bid</button>
-      </div>
     </form>
 
-    <h5>Details</h5>
-    <p>Listed by : {{ listing.created_by }} <br> On : {{ listing.created_at }} <br> Category : {{ listing.category }}
-    </p>
+    {% endif %}
 
     {% if user.is_authenticated %}
 
@@ -72,5 +68,11 @@
     {% endif %}
 
     {% endif %}
+
+    <hr class="mt-5">
+    <p class="text-secondary">Listed by {{ listing.created_by }} -
+      On {{ listing.created_at }} -
+      in {{ listing.category }}'s category
+    </p>
 
     {% endblock %}
