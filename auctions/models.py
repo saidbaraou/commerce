@@ -21,7 +21,7 @@ class Listing(models.Model):
     description = models.TextField(default='')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_sold = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="listings")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="listings")
     created_at = models.DateField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category", default=6)
     starting_bid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
