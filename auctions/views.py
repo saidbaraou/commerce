@@ -102,12 +102,18 @@ def register(request):
 @login_required
 def create_listing_view(request):
     user = request.user
+    
     watchlist_number = get_watchlist_length(user)
 
     if request.method == "POST":
         form = AddListingForm(request.POST)
+        
         if form.is_valid():
-                new_listing = form.save()
+                #The 3 following lines get the form data without saving it, then set the created by property and finally save the object. This because we are using a ModelForm to handle the Listing creation
+                new_listing = form.save(commit=False)
+                new_listing.created_by = request.user
+                new_listing.save()
+                
                 return HttpResponseRedirect(reverse("index"))
     else: form = AddListingForm()
 
