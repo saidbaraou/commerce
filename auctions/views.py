@@ -220,3 +220,10 @@ def remove_watchlist_view(request, listing_id):
     #remove the listing from the watchlist 
     watchlist.listings.remove(listing) 
     return HttpResponseRedirect(reverse("watchlist"))
+
+@login_required
+def place_bid(request, listing_id):
+    user = request.user
+    listing = get_object_or_404(Listing, pk=listing_id)
+
+    return
