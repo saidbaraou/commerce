@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
@@ -223,16 +224,33 @@ def remove_watchlist_view(request, listing_id):
 
 @login_required
 def place_bid(request, listing_id):
+    listing = get_object_or_404(Listing, id=listing_id)
+
     if request.method == "POST":
-        bidForm = BidForm(request.POST)
+        form = BidForm(request.POST)
 
-        if bidForm.is_valid():
-            bid = bidForm.cleaned_data['bid_amount']
+        if form.is_valid():
+            bid = form.cleaned_data['bid_amount']
 
-        user = request.user
+            new_bid = form.save(commit=False)
 
-        listing = get_object_or_404(Listing, pk=listing_id)
+            new_bid.user = request.user
+            new_bid.listing = request.listing
 
-        
+            new_bid.save()
 
-    return
+            listing.current_bid = bid
+            listing.save()
+
+            return redirect('listing_detail', listing_id=listing_id)
+        else:
+            messages.error(request, "Failed to place bid. Please check the amount.")
+
+    else:
+        form = BidForm(listing=listing)
+
+        context = {
+            "listing": listing
+            }
+       
+    return render(request, "auctions/listing_detail.html", context)
