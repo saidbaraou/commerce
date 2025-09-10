@@ -48,7 +48,7 @@ class CategoryFilterForm(forms.Form):
 class BidForm(forms.Form):
     class Meta:
       model = Bid
-      fields = ('amount')
+      fields = ('bid_amount')
 
       widgets = {
         'title': forms.TextInput(attrs={

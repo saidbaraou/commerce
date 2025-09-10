@@ -223,7 +223,16 @@ def remove_watchlist_view(request, listing_id):
 
 @login_required
 def place_bid(request, listing_id):
-    user = request.user
-    listing = get_object_or_404(Listing, pk=listing_id)
+    if request.method == "POST":
+        bidForm = BidForm(request.POST)
+
+        if bidForm.is_valid():
+            bid = bidForm.cleaned_data['bid_amount']
+
+        user = request.user
+
+        listing = get_object_or_404(Listing, pk=listing_id)
+
+        
 
     return
