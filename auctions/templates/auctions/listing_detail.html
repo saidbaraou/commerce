@@ -18,13 +18,13 @@
   <div class="p-3">
     <h2 class="mb-5">{{ listing.title }}</h2>
     {% if listing.image_url%}
-    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
+    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200" height="400">
     {% else %}
     <img
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
-    <h3>${{ listing.price }}</h3>
+    <h3 class="mt-5">${{ listing.price }}</h3>
     <h5>Description :</h5>
     <p class="mb-5">{{ listing.description }} </p>
 
