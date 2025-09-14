@@ -28,7 +28,7 @@
     <h5>Description :</h5>
     <p class="mb-5">{{ listing.description }} </p>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user != listing.created_by %}
 
     <form method="POST" action="">
       {% csrf_token %}
