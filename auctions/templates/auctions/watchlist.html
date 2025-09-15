@@ -5,10 +5,12 @@
 <h2 class="mb-5">{{user.username}}'s watchlist</h2>
 
 <div class="container">
+
+  {% for listing in watchlist_listings %}
   <ul class="list-unstyled item-list">
-    {% for listing in watchlist_listings %}
 
     <li class="item d-flex align-items-start">
+
       {% if listing.image_url%}
       <img class="me-5" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200">
       {% else %}
@@ -31,17 +33,19 @@
     </li>
 
     <hr>
+
   </ul>
+  {% empty %}
+  <div>
+    No listing available
+  </div>
+  {% endfor %}
 </div>
 
-{% empty %}
-<div>
-  No listing available
-</div>
 
-{% endfor %}
 
-</div>
+
+
 
 
 <p>{{listings}}</p>
