@@ -8,6 +8,7 @@
   }
 
   input[type="number"] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 </style>
@@ -36,7 +37,7 @@
         {{ form.as_p }}
         <div class="d-flex align-items-center input-group mb-5">
           <input type="number" class="form-control" name="{{ form.amount.name }}" placeholder="bid"
-            style="-webkit-appearance: none; -moz-appearance: textfield;">
+            style="appearance: none; -webkit-appearance: none; -moz-appearance: textfield;">
           <button type="submit" class="btn btn-primary">Place Bid</button>
         </div>
       </div>
