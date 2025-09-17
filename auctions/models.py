@@ -14,6 +14,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+     
 
 class Listing(models.Model):
     title = models.CharField(max_length=64)
@@ -23,9 +24,7 @@ class Listing(models.Model):
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True, related_name="listings")
     created_at = models.DateField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category", default=None, null=True)
-    starting_bid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    current_bid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category", default=6)
     winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="won_listing")
     
     
@@ -55,4 +54,4 @@ class Bid(models.Model):
         return f"""
     {self.user.username}
     bid ${self.amount} on {self.listing.title} by {self.user.username} on {self.timestamp}
-    """
+    """   
