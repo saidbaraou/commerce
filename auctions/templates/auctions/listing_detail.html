@@ -16,8 +16,8 @@
 {% block body %}
 
 <div class="d-flex justify-content-center align-items-center">
-  <div class="p-3">
-    <h2 class="mb-5">{{ listing.title }}</h2>
+  <div class="p-3 d-flex flex-column">
+
     {% if listing.image_url%}
     <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200" height="400">
     {% else %}
@@ -25,12 +25,43 @@
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
-    <h3 class="mt-5 mb-2">${{ listing.price }}</h3>
+    <h2 class="mt-2">{{ listing.title }}</h2>
+    <h3 class="mb-2">${{ listing.price }}</h3>
+    <p class="text-secondary">Listed by {{ listing.created_by }} -
+      On {{ listing.created_at }}
+    </p>
 
-    <p class="mb-3">{{ listing.description }} </p>
+    {% if user.is_authenticated %}
+
+    {% if is_in_watchlist %}
+
+    <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
+
+      {% csrf_token %}
+      <div class="d-grid">
+        <button type="submit" class="btn btn-outline-danger mt-2">Remove from watchlist</button>
+      </div>
+    </form>
+    {% else %}
+    <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
+
+      {% csrf_token %}
+      <div class="d-grid">
+        <button type=" submit" class="btn btn-outline-success mt-2">Add to watchlist</button>
+      </div>
+    </form>
+    {% endif %}
+
+    {% endif %}
+
+    <hr>
+    <h5>Description</h5>
+    <p>{{ listing.description }} </p>
+
+    <hr>
 
     {% if user.is_authenticated and user != listing.created_by %}
-
+    <h5>Bid</h5>
     <form method="POST" action="">
       {% csrf_token %}
       <div>
@@ -53,27 +84,5 @@
 
     {% endif %}
 
-    {% if user.is_authenticated %}
-
-    {% if is_in_watchlist %}
-
-    <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-outline-danger mt-3">Remove from watchlist</button>
-    </form>
-    {% else %}
-    <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-outline-success mt-3">Add to watchlist</button>
-    </form>
-    {% endif %}
-
-    {% endif %}
-
-    <hr class="mt-5">
-    <p class="text-secondary">Listed by {{ listing.created_by }} -
-      On {{ listing.created_at }} -
-      in {{ listing.category }}'s category
-    </p>
 
     {% endblock %}
