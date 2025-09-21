@@ -242,19 +242,25 @@ def place_bid(request, listing_id):
 
             new_bid.save()
 
-            listing.current_bid = bid
+            listing.current_bid = new_bid.bid_amount
             listing.save()
 
             return redirect('listing_detail', listing_id=listing_id)
         
         else:
             messages.error(request, "Failed to place bid. Please check the amount.")
+            context = {
+                "listing": listing,
+                "form": form,
+            }
+            return render(request, "auctions/listing_detail.html", context)
 
     else:
         form = BidForm(listing=listing)
 
         context = {
-            "listing": listing
+            "listing": listing,
+            "form": form,
             }
        
     return render(request, "auctions/listing_detail.html", context)
