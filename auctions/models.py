@@ -48,7 +48,7 @@ class Watchlist(models.Model):
 class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_bids")
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    bid_amount = models.DecimalField(max_digits=10, decimal_places=2)
     timsestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

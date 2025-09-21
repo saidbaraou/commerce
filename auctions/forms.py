@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Listing, Category, Bid
 
 INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
@@ -48,13 +49,25 @@ class CategoryFilterForm(forms.Form):
 class BidForm(forms.ModelForm):
     class Meta:
       model = Bid
-      fields = ('bid_amount')
+      fields = ('bid_amount',)
 
-      widgets = {
-        'bid_amount': forms.TextInput(attrs={
-          'class': INPUT_CLASSES,
-          'placeholder': 'Bid Amount'
-        })
-      }
+    def __init__(self, *args, **kwargs):
+      self.listing = kwargs.pop('listing', None)
+      super().__init__(*args, **kwargs)
 
-  # amount = forms.DecimalField(label="Bid Amount")
+      self.fields['bid_amount'].widgets = forms.NumberInput(attrs={
+        'class': INPUT_CLASSES,
+        'placeholder': 'Bid'
+      })
+
+    def clean_amount(self):
+       bid_amount = self.cleaned_data.get("bid_amount")
+
+       current_highest_price = self.listing.current_bid or self.listing.price
+
+       if bid_amount <= current_highest_price:
+          raise ValidationError(
+             f"Your bid of ${bid_amount} must be greater than the current price/bid of ${current_highest_price}."
+          )
+       return bid_amount
+
