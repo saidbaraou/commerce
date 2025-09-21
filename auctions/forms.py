@@ -45,7 +45,7 @@ class CategoryFilterForm(forms.Form):
         widget=forms.Select(attrs={'class': 'form-control w-75 rounded py-2 px-3 border'})
     )
 
-class BidForm(forms.Form):
+class BidForm(forms.ModelForm):
     class Meta:
       model = Bid
       fields = ('bid_amount')
