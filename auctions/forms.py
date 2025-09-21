@@ -51,6 +51,7 @@ class BidForm(forms.ModelForm):
       model = Bid
       fields = ('bid_amount',)
 
+    #This method is to retrieve the Listing object from the view and make it available inside the form for validation
     def __init__(self, *args, **kwargs):
       self.listing = kwargs.pop('listing', None)
       super().__init__(*args, **kwargs)
@@ -60,6 +61,7 @@ class BidForm(forms.ModelForm):
         'placeholder': 'Bid'
       })
 
+    #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
     def clean_amount(self):
        bid_amount = self.cleaned_data.get("bid_amount")
 
