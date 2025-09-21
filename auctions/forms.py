@@ -63,13 +63,29 @@ class BidForm(forms.ModelForm):
 
     #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
     def clean_amount(self):
-       bid_amount = self.cleaned_data.get("bid_amount")
+      bid_amount = self.cleaned_data.get("bid_amount")
 
-       current_highest_price = self.listing.current_bid or self.listing.price
+      #  current_highest_price = self.listing.current_bid or self.listing.price
 
-       if bid_amount <= current_highest_price:
+      if self.listing.current_bid:
+        current_highest_price = self.listing.current_bid
+      else:
+        current_highest_price = self.listing.price
+      
+      if self.listing.current_bid:
+        if bid_amount <= current_highest_price:
           raise ValidationError(
-             f"Your bid of ${bid_amount} must be greater than the current price/bid of ${current_highest_price}."
+            f"Your bid of ${bid_amount} must be greater than the current highest bid of ${current_highest_price}."
           )
-       return bid_amount
+      else:
+        if bid_amount < current_highest_price:
+          raise ValidationError(
+                f"Your bid of ${bid_amount} must be at least as large as the initial price of ${current_highest_price}."
+            )
+      return bid_amount
+
+
+
+
+       
 
