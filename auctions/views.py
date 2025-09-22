@@ -112,6 +112,8 @@ def create_listing_view(request):
         if form.is_valid():
                 #The 3 following lines get the form data without saving it, then set the created by property and finally save the object. This because we are using a ModelForm to handle the Listing creation
                 new_listing = form.save(commit=False)
+                if new_listing.category is None:
+                    pass
                 new_listing.created_by = request.user
                 new_listing.save()
                 
