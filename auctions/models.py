@@ -56,3 +56,9 @@ class Bid(models.Model):
     {self.user.username}
     bid ${self.amount} on {self.listing.title} by {self.user.username} on {self.timestamp}
     """   
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_user")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_comment")
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
