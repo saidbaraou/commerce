@@ -25,7 +25,7 @@ class Listing(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null= True, related_name="listings")
     created_at = models.DateField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="category", null=True, blank=True)
-    current_bid = models.DecimalField(max_digits=10, decimal_places=2)
+    current_bid = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0.00)
     winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="won_listing")
     
     
