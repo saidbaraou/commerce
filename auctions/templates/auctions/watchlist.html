@@ -23,14 +23,14 @@
         <strong></strong>
         <p>{{listing.description}}</p>
         <p><strong>${{listing.price}}</strong></p>
-        <div class="d-grid gap-2">
-          <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3">See details</a>
 
-          <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-danger w-100">Remove from watchlist</button>
-          </form>
-        </div>
+        <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3 mb-1">See details</a>
+
+        <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Remove from watchlist</button>
+        </form>
+
       </div>
 
     </li>
