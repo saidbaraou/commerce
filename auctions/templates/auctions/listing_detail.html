@@ -62,7 +62,7 @@
 
     {% if user.is_authenticated and user != listing.created_by %}
     <h5>Bid</h5>
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'place_bid' listing_id=listing.id %}">
       {% csrf_token %}
       <div>
         {{ form.as_p }}
