@@ -61,7 +61,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return redirect(reverse("index"))
         else:
             return render(request, "auctions/login.html", context)
     else:
@@ -70,7 +70,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return redirect(reverse("index"))
 
 
 def register(request):
@@ -117,7 +117,7 @@ def create_listing_view(request):
                 new_listing.created_by = request.user
                 new_listing.save()
                 
-                return HttpResponseRedirect(reverse("index"))
+                return redirect(reverse("index"))
     else: form = AddListingForm()
 
     context = {
@@ -213,7 +213,7 @@ def add_watchlist_view(request, listing_id):
     watchlist, created = Watchlist.objects.get_or_create(user=user)
     #add the listing to the watchlist 
     watchlist.listings.add(listing) 
-    return HttpResponseRedirect(reverse("watchlist"))
+    return redirect(reverse("watchlist"))
 
 
 @login_required
@@ -224,7 +224,7 @@ def remove_watchlist_view(request, listing_id):
     watchlist, created = Watchlist.objects.get_or_create(user=user)
     #remove the listing from the watchlist 
     watchlist.listings.remove(listing) 
-    return HttpResponseRedirect(reverse("watchlist"))
+    return redirect(reverse("watchlist"))
 
 
 @login_required
