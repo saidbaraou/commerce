@@ -235,12 +235,11 @@ def place_bid(request, listing_id):
         form = BidForm(request.POST)
 
         if form.is_valid():
-            new_bid = form.cleaned_data['bid_amount']
 
             new_bid = form.save(commit=False)
 
             new_bid.user = request.user
-            new_bid.listing = request.listing
+            new_bid.listing = listing
 
             new_bid.save()
 
