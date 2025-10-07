@@ -56,13 +56,13 @@ class BidForm(forms.ModelForm):
       self.listing = kwargs.pop('listing', None)
       super().__init__(*args, **kwargs)
 
-      self.fields['bid_amount'].widgets = forms.NumberInput(attrs={
-        'class': INPUT_CLASSES,
+      self.fields['bid_amount'].widget = forms.NumberInput(attrs={
+        'class': 'form-control',
         'placeholder': 'Bid'
       })
 
     #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
-    def clean_amount(self):
+    def clean_bid_amount(self):
       bid_amount = self.cleaned_data.get("bid_amount")
 
       #  current_highest_price = self.listing.current_bid or self.listing.price
