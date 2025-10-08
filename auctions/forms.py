@@ -57,7 +57,7 @@ class BidForm(forms.ModelForm):
       super().__init__(*args, **kwargs)
 
       self.fields['bid_amount'].widget = forms.NumberInput(attrs={
-        'class': 'form-control',
+        'class' : INPUT_CLASSES, 
         'placeholder': 'Bid'
       })
 
