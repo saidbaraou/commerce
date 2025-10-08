@@ -264,4 +264,4 @@ def place_bid(request, listing_id):
             "form": form,
             }
        
-    return render(request, "auctions/place-bid.html", context)
+    return render(request, "auctions/listing_detail.html", context)
