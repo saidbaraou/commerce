@@ -47,6 +47,7 @@ class CategoryFilterForm(forms.Form):
     )
 
 class BidForm(forms.ModelForm):
+
     class Meta:
       model = Bid
       fields = ('bid_amount',)
@@ -57,8 +58,8 @@ class BidForm(forms.ModelForm):
       super().__init__(*args, **kwargs)
 
       self.fields['bid_amount'].widget = forms.NumberInput(attrs={
-        'class' : INPUT_CLASSES, 
-        'placeholder': 'Bid'
+         'class': INPUT_CLASSES,
+         'placeholder': 'Bid'
       })
 
     #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
