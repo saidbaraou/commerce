@@ -72,9 +72,10 @@
     <h5>Description</h5>
     <p>{{ listing.description }} </p>
 
-    <hr>
+
 
     {% if user.is_authenticated and user != listing.created_by %}
+    <hr>
     <h5>Bid</h5>
     <form method="POST" action="{% url 'place_bid' listing_id=listing.id %}">
       {% csrf_token %}
