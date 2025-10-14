@@ -71,6 +71,7 @@
     <hr>
     <h5>Description</h5>
     <p>{{ listing.description }} </p>
+
     <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
     {% if user.is_authenticated and user != listing.created_by %}
     <hr>

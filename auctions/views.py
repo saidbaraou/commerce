@@ -256,12 +256,10 @@ def place_bid(request, listing_id):
             }
             return render(request, "auctions/listing_detail.html", context)
 
-    else:
-        form = BidForm(listing=listing)
-
+    else: 
+        form = BidForm(listing=listing)      
         context = {
             "listing": listing,
             "form": form,
-            }
-       
-    return render(request, "auctions/listing_detail.html", context)
+        }
+        return render(request, "auctions/listing_detail.html", context)

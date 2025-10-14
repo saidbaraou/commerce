@@ -66,7 +66,7 @@ class BidForm(forms.ModelForm):
     def clean_bid_amount(self):
       bid_amount = self.cleaned_data.get("bid_amount")
 
-      #  current_highest_price = self.listing.current_bid or self.listing.price
+      current_highest_price = self.listing.current_bid or self.listing.price
 
       if self.listing.current_bid:
         current_highest_price = self.listing.current_bid
@@ -84,9 +84,3 @@ class BidForm(forms.ModelForm):
                 f"Your bid of ${bid_amount} must be at least as large as the initial price of ${current_highest_price}."
             )
       return bid_amount
-
-
-
-
-       
-
