@@ -246,7 +246,7 @@ def place_bid(request, listing_id):
             listing.current_bid = new_bid.bid_amount
             listing.save()
 
-            return redirect('place-bid', listing_id=listing_id)
+            return redirect('listing_detail', listing_id=listing_id)
         
         else:
             messages.error(request, "Failed to place bid. Please check the amount.")
