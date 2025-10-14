@@ -71,9 +71,7 @@
     <hr>
     <h5>Description</h5>
     <p>{{ listing.description }} </p>
-
-
-
+    <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
     {% if user.is_authenticated and user != listing.created_by %}
     <hr>
     <h5>Bid</h5>
@@ -84,22 +82,17 @@
       </div>
 
       {% if form.errors or form.non_field_errors %}
-      <div class="alert alert-danger mt-3" role="alert">
-        {% for error in form.non_field_errors %}
-        <p>{{ error }}</p>
+      <div class="invalid-feedback">
+        {% for field in form %}
+        {{ field.errors }}
         {% endfor %}
 
-        {% for field in form %}
-        {% for error in field.errors %}
-        <p>{{ field.label }}: {{ error }}</p>
-        {% endfor %}
-        {% endfor %}
+        {{ form.non_field_errors }}
       </div>
       {% endif %}
 
       <button type="submit" class="btn btn-primary">Place Bid</button>
     </form>
-
     {% endif %}
 
 
