@@ -32,7 +32,7 @@
     {% if listing.current_bid %}
     <h3 class="mb-2">${{ listing.current_bid }}</h3>
     {% if request.user == user %}
-    <p class="text-secondary">Current bid was placed by you
+    <p class="text-secondary">Current bid is yours
       {% else %}
     <p class="text-secondary">Current bid was placed by {{ user }}
       {% endif %}
