@@ -232,7 +232,7 @@ def place_bid(request, listing_id):
     listing = get_object_or_404(Listing, id=listing_id)
 
     if request.method == "POST":
-        form = BidForm(request.POST)
+        form = BidForm(request.POST, listing=listing)
 
         if form.is_valid():
 
