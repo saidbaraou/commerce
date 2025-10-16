@@ -26,7 +26,7 @@ def home_view(request):
         "categories": categories,
     }
 
-    return render(request, 'auctions/home.html', context)
+    return render(request, 'auctions/index.html', context)
 
 @login_required
 def welcome_view(request):
@@ -147,7 +147,7 @@ def filter_category_view(request):
         "categories": categories,
         "listings": listings
     }
-    return render(request, 'auctions/home.html', context)
+    return render(request, 'auctions/index.html', context)
 
 
 def get_watchlist_listing(user):
