@@ -52,35 +52,38 @@ class BidForm(forms.ModelForm):
       model = Bid
       fields = ('bid_amount',)
 
+      widgets = {
+      'bid_amount': forms.NumberInput(attrs={
+        'class': INPUT_CLASSES,
+        'placeholder': 'Bid'
+      }),
+      }
+    
+
     #This method is to retrieve the Listing object from the view and make it available inside the form for validation
     def __init__(self, *args, **kwargs):
       self.listing = kwargs.pop('listing', None)
-      super().__init__(*args, **kwargs)
-
-      self.fields['bid_amount'].widget = forms.NumberInput(attrs={
-         'class': INPUT_CLASSES,
-         'placeholder': 'Bid'
-      })
+      super().__init__(*args, **kwargs)    
+      # self.fields['bid_amount']
 
     #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
     def clean_bid_amount(self):
       bid_amount = self.cleaned_data.get("bid_amount")
 
-      current_highest_price = self.listing.current_bid or self.listing.price
+      if self.listing.current_bid:
+            # If a bid exists, the minimum price is the current highest bid
+            min_price = self.listing.current_bid
+            
+            if bid_amount <= min_price:
+                raise ValidationError(
+                    f"Your bid of ${bid_amount} must be greater than the current highest bid of ${min_price}."
+                )
+      else:
+            # If no bid exists, the minimum price is the starting price
+            min_price = self.listing.price
 
-      if self.listing.current_bid:
-        current_highest_price = self.listing.current_bid
-      else:
-        current_highest_price = self.listing.price
-      
-      if self.listing.current_bid:
-        if bid_amount <= current_highest_price:
-          raise ValidationError(
-            f"Your bid of ${bid_amount} must be greater than the current highest bid of ${current_highest_price}."
-          )
-      else:
-        if bid_amount < current_highest_price:
-          raise ValidationError(
-                f"Your bid of ${bid_amount} must be at least as large as the initial price of ${current_highest_price}."
-            )
+            if bid_amount < min_price:
+                raise ValidationError(
+                    f"Your bid of ${bid_amount} must be at least as large as the initial price of ${min_price}."
+                )
       return bid_amount

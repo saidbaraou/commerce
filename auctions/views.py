@@ -187,6 +187,7 @@ def listing_detail_view(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     is_in_watchlist = False
     watchlist_number = None
+    bid_form = None
 
     if request.user.is_authenticated:
        user = request.user
@@ -196,11 +197,15 @@ def listing_detail_view(request, listing_id):
            is_in_watchlist = listing in watchlist.listings.all()
        except Watchlist.DoesNotExist:
            pass   
+       
+       if request.user != listing.created_by:
+           bid_form = BidForm(listing=listing)
 
     context = {
             "listing": listing,
             "is_in_watchlist": is_in_watchlist,
-            "watchlist_number": watchlist_number
+            "watchlist_number": watchlist_number,
+            "form": bid_form
             }
     return render(request, 'auctions/listing_detail.html', context)
 
@@ -256,10 +261,4 @@ def place_bid(request, listing_id):
             }
             return render(request, "auctions/listing_detail.html", context)
 
-    else:
-        form = BidForm(request.GET, listing=listing)      
-        context = {
-            "form": form,
-            "listing": listing,
-        }
-        return render(request, "auctions/listing_detail.html", context)
+    return render(request, "auctions/listing_detail.html/", context)

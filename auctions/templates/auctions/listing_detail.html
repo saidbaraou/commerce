@@ -42,8 +42,13 @@
 
     </p>
     {% endif %}
+    {% if request.user == listing.created_by %}
+    <p class="text-secondary">Listed by you -
+      On {{ listing.created_at }}
+      {% else %}
     <p class="text-secondary">Listed by {{ listing.created_by }} -
       On {{ listing.created_at }}
+      {% endif %}
 
 
       {% if user.is_authenticated %}
@@ -73,10 +78,12 @@
     <h5>Description</h5>
     <p>{{ listing.description }} </p>
 
+
     <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
     {% if user.is_authenticated and user != listing.created_by %}
     <hr>
     <h5>Bid</h5>
+
     <form method="POST" action="{% url 'place_bid' listing_id=listing.id %}">
       {% csrf_token %}
       <div>
