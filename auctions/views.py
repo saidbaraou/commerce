@@ -147,7 +147,7 @@ def filter_category_view(request):
         "categories": categories,
         "listings": listings
     }
-    return render(request, 'auctions/index.html', context)
+    return render(request, 'auctions/home.html', context)
 
 
 def get_watchlist_listing(user):
@@ -251,15 +251,15 @@ def place_bid(request, listing_id):
         else:
             messages.error(request, "Failed to place bid. Please check the amount.")
             context = {
-                "listing": listing,
                 "form": form,
+                "listing": listing,
             }
             return render(request, "auctions/listing_detail.html", context)
 
-    else: 
-        form = BidForm(listing=listing)      
+    else:
+        form = BidForm(request.GET, listing=listing)      
         context = {
-            "listing": listing,
             "form": form,
+            "listing": listing,
         }
         return render(request, "auctions/listing_detail.html", context)
