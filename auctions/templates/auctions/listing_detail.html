@@ -28,8 +28,9 @@
 
     <h2 class="mt-2">{{ listing.title }}</h2>
 
-    <h3 class="mb-2 text-decoration-line-through">${{ listing.price }}</h3>
+
     {% if listing.current_bid %}
+    <h3 class="mb-2 text-decoration-line-through">${{ listing.price }}</h3>
     <h3 class="mb-2">${{ listing.current_bid }}</h3>
     {% if request.user == user %}
     <p class="text-secondary">Current bid is yours
