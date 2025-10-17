@@ -51,20 +51,27 @@ class BidForm(forms.ModelForm):
     class Meta:
       model = Bid
       fields = ('bid_amount',)
+      error_messages = {
+         'bid_amount': {
+            'required': 'Please enter a valid value for this field'
+         }
+      }
 
       widgets = {
       'bid_amount': forms.NumberInput(attrs={
         'class': INPUT_CLASSES,
         'placeholder': 'Bid'
       }),
+      
       }
     
 
     #This method is to retrieve the Listing object from the view and make it available inside the form for validation
     def __init__(self, *args, **kwargs):
       self.listing = kwargs.pop('listing', None)
-      super().__init__(*args, **kwargs)    
-      # self.fields['bid_amount']
+      super().__init__(*args, **kwargs)
+      for field_name in self.fields:
+         self.fields[field_name].label = False  
 
     #This method is to check the user's input for the bid_amount field and make sure it meets the business rules -here, that's bigger than current_highest_price- before it's saved to the db
     def clean_bid_amount(self):
@@ -76,7 +83,7 @@ class BidForm(forms.ModelForm):
             
             if bid_amount <= min_price:
                 raise ValidationError(
-                    f"Your bid of ${bid_amount} must be greater than the current highest bid of ${min_price}."
+                    f"Your bid must be greater than the current one of ${min_price}."
                 )
       else:
             # If no bid exists, the minimum price is the starting price
