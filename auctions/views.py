@@ -183,7 +183,6 @@ def watchlist_view(request):
 
 
 def listing_detail_view(request, listing_id):
-    
     listing = get_object_or_404(Listing, pk=listing_id)
     is_in_watchlist = False
     watchlist_number = None
@@ -262,3 +261,4 @@ def place_bid(request, listing_id):
             return render(request, "auctions/listing_detail.html", context)
 
     return render(request, "auctions/listing_detail.html/", context)
+
