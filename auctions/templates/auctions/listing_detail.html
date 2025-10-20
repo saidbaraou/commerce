@@ -107,7 +107,8 @@
     {% endif %}
 
     {% if request.user == user and user == listing.created_by %}
-    <button type=" submit" class="btn btn-outline-secondary mt-5">close auction</button>
+    <button type=" submit" method="POST" action="{% url 'close_bid' listing_id = listing.id %}"
+      class="btn btn-outline-secondary mt-5">close auction</button>
     {% endif %}
 
     {% endblock %}

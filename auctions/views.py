@@ -2,7 +2,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -262,3 +261,6 @@ def place_bid(request, listing_id):
 
     return render(request, "auctions/listing_detail.html/", context)
 
+@login_required
+def close_bid(request, listing_id):
+    return
