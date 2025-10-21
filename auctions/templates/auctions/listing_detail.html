@@ -1,6 +1,5 @@
 {% extends "auctions/layout.html" %}
 
-{% load widget_tweaks %}
 
 <style>
   input[type="number"]::-webkit-outer-spin-button,
@@ -34,10 +33,11 @@
     {% if listing.current_bid %}
     <h3 class="mb-2 text-decoration-line-through">${{ listing.price }}</h3>
     <h3 class="mb-2">${{ listing.current_bid }}</h3>
-    {% if request.user == user %}
+    {% if request.user == user and user != listing.created_by %}
     <p class="text-secondary">Current bid is yours
       {% else %}
-    <p class="text-secondary">Current bid was placed by {{ user }}
+    <p class="text-secondary">Current bid was placed by (To complete with the right user, the one who placed the biggest
+      bid)
       {% endif %}
       {% else %}
     <h3 class="mb-2">${{ listing.price }}</h3>
@@ -82,7 +82,7 @@
 
 
     <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
-    {% if user.is_authenticated and user != listing.created_by %}
+    {% if user.is_authenticated and user != listing.created_by and listing.is_available != False %}
     <hr>
     <h5>Bid</h5>
 
@@ -106,8 +106,8 @@
     </form>
     {% endif %}
 
-    {% if request.user == user and user == listing.created_by %}
-    <button type=" submit" method="POST" action="{% url 'close_bid' listing_id = listing.id %}"
+    {% if request.user == user and user == listing.created_by and listing.is_available != False %}
+    <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
       class="btn btn-outline-secondary mt-5">close auction</button>
     {% endif %}
 

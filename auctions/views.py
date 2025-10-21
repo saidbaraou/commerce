@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import IntegrityError
+from django.db.models import Max 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -263,4 +264,8 @@ def place_bid(request, listing_id):
 
 @login_required
 def close_bid(request, listing_id):
-    return
+    listing = get_object_or_404(Listing, pk=listing_id)
+    listing.is_available = False
+    listing.save()
+    user = Bid.objects.get()
+    return redirect(reverse("listing_detail"))
