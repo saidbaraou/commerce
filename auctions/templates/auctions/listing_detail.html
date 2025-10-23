@@ -14,10 +14,15 @@
   }
 </style>
 
+
+
 {% block body %}
+
 
 <div class="d-flex justify-content-center align-items-center">
   <div class="p-3 d-flex flex-column">
+
+    {% if listing.is_available == True %}
 
     {% if listing.image_url %}
     <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200" height="400">
@@ -26,6 +31,7 @@
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
       class="card-img-top" alt="no image available">
     {% endif %}
+
 
     <h2 class="mt-2">{{ listing.title }}</h2>
 
@@ -45,73 +51,82 @@
     </p>
     {% endif %}
     {% if request.user == listing.created_by %}
-    <p class="text-secondary">Listed by you -
+    <div class="text-secondary">Listed by you -
       On {{ listing.created_at }}
       {% else %}
-    <p class="text-secondary">Listed by {{ listing.created_by }} -
-      On {{ listing.created_at }}
-      {% endif %}
+      <div class="text-secondary">Listed by {{ listing.created_by }} -
+        On {{ listing.created_at }}
+        {% endif %}
 
 
-      {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
 
-      {% if is_in_watchlist %}
+        {% if is_in_watchlist %}
 
-    <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
+        <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
 
-      {% csrf_token %}
-      <div class="d-grid">
-        <button type="submit" class="btn btn-outline-danger mt-2">Remove from watchlist</button>
+          {% csrf_token %}
+          <div class="d-grid">
+            <button type="submit" class="btn btn-outline-danger mt-2">Remove from watchlist</button>
+          </div>
+        </form>
+        {% else %}
+        {% if request.user != user %}
+        <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
+
+          {% csrf_token %}
+          <div class="d-grid">
+            <button type=" submit" class="btn btn-outline-success mt-2">Add to watchlist</button>
+          </div>
+        </form>
+        <hr>
+        {% endif %}
+        {% endif %}
+
+        {% endif %}
+
+        <hr>
+        <h5 class="black">Description</h5>
+        <p>{{ listing.description }} </p>
+
+
+        <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
+        {% if user.is_authenticated and user != listing.created_by and listing.is_available != True %}
+        <hr>
+        <h5>Bid</h5>
+
+        <form method="POST" action="{% url 'place_bid' listing_id=listing.id %}">
+          {% csrf_token %}
+          <div>
+            {{ form.as_p }}
+          </div>
+
+          {% if form.errors or form.non_field_errors %}
+          <div class="invalid-feedback">
+            {% for field in form %}
+            {{ field.errors }}
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+          </div>
+          {% endif %}
+
+          <button type="submit" class="btn btn-primary">Place Bid</button>
+        </form>
+        {% endif %}
+
+        {% if request.user == user and user == listing.created_by and listing.is_available == False %}
+        <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
+          class="btn btn-outline-secondary mt-5">close auction</button>
+        {% endif %}
+
+
+        {% else %}
+        <h1>Listing is no longer available</h1>
+        <h1>The winner is (to define later)</h1>
+        {% endif %}
+
       </div>
-    </form>
-    {% else %}
-    {% if request.user != user %}
-    <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
-
-      {% csrf_token %}
-      <div class="d-grid">
-        <button type=" submit" class="btn btn-outline-success mt-2">Add to watchlist</button>
-      </div>
-    </form>
-    <hr>
-    {% endif %}
-    {% endif %}
-
-    {% endif %}
-
-
-    <h5>Description</h5>
-    <p>{{ listing.description }} </p>
-
-
-    <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
-    {% if user.is_authenticated and user != listing.created_by and listing.is_available != True %}
-    <hr>
-    <h5>Bid</h5>
-
-    <form method="POST" action="{% url 'place_bid' listing_id=listing.id %}">
-      {% csrf_token %}
-      <div>
-        {{ form.as_p }}
-      </div>
-
-      {% if form.errors or form.non_field_errors %}
-      <div class="invalid-feedback">
-        {% for field in form %}
-        {{ field.errors }}
-        {% endfor %}
-
-        {{ form.non_field_errors }}
-      </div>
-      {% endif %}
-
-      <button type="submit" class="btn btn-primary">Place Bid</button>
-    </form>
-    {% endif %}
-
-    {% if request.user == user and user == listing.created_by and listing.is_available != False %}
-    <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
-      class="btn btn-outline-secondary mt-5">close auction</button>
-    {% endif %}
+    </div>
 
     {% endblock %}
