@@ -267,5 +267,5 @@ def close_bid(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     listing.is_available = False
     listing.save()
-    user = Bid.objects.get()
+    
     return redirect(reverse("listing_detail"))

@@ -29,7 +29,6 @@ class Listing(models.Model):
     is_available = models.BooleanField(default=True)
     winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="won_listing")
     
-    
     def __str__(self):
         return f"""
     {self.title}
@@ -45,6 +44,7 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Watchlist"
+    
 
 class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_bids")
@@ -57,6 +57,7 @@ class Bid(models.Model):
     {self.user.username}
     bid ${self.bid_amount} on {self.listing.title} by {self.user.username} on {self.timestamp}
     """   
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_user")
