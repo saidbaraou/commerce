@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.db.models import Max 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 from .models import User, Category, Listing, Watchlist, Bid
 from .forms import AddListingForm, CategoryFilterForm, BidForm
@@ -262,10 +263,27 @@ def place_bid(request, listing_id):
 
     return render(request, "auctions/listing_detail.html/", context)
 
+@require_POST 
 @login_required
 def close_bid(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
+
+    if not listing.is_available:
+
+        return redirect(reverse("listing_detail", args=[listing_id]))
+    
+
+    if listing.listing_bids.exists():
+        max_amount = listing.listing_bids.aggregate(Max('bid_amount'))['bid_amount__max']
+
+        winning_bid = listing.listing_bids.filter(bid_amount=max_amount).order_by('-timestamp').first()
+
+        if winning_bid:
+            listing.winner = winning_bid.user
+            listing.current_bid = winning_bid.bid_amount
+
     listing.is_available = False
+    listing.is_sold = True
     listing.save()
     
-    return redirect(reverse("listing_detail"))
+    return redirect(reverse("listing_detail", args=[listing_id]))
