@@ -86,12 +86,12 @@
         {% endif %}
 
         <hr>
-        <h5 class="black">Description</h5>
+        <h5>Description</h5>
         <p>{{ listing.description }} </p>
 
 
         <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
-        {% if user.is_authenticated and user != listing.created_by and listing.is_available != True %}
+        {% if user.is_authenticated and user != listing.created_by %}
         <hr>
         <h5>Bid</h5>
 
@@ -115,9 +115,11 @@
         </form>
         {% endif %}
 
-        {% if request.user == user and user == listing.created_by and listing.is_available == False %}
-        <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
-          class="btn btn-outline-secondary mt-5">close auction</button>
+        {% if request.user == user and user == listing.created_by%}
+        <div class="d-grid">
+          <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
+            class="btn btn-outline-secondary mt-5">close auction</button>
+        </div>
         {% endif %}
 
 
