@@ -19,7 +19,7 @@ def index(request):
 
 def home_view(request):
     """View for logged-out users"""
-    listings = Listing.objects.filter(is_sold=False)
+    listings = Listing.objects.all()
     categories = Category.objects.all()
 
     context = {
@@ -32,7 +32,7 @@ def home_view(request):
 @login_required
 def welcome_view(request):
     """View for logged-in users"""
-    listings = Listing.objects.filter(is_sold=False)
+    listings = Listing.objects.all()
     categories = Category.objects.all()
     user = request.user
     watchlist_number = get_watchlist_length(user)
