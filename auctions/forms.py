@@ -60,7 +60,7 @@ class BidForm(forms.ModelForm):
       widgets = {
       'bid_amount': forms.NumberInput(attrs={
         'class': INPUT_CLASSES,
-        'placeholder': 'Bid'
+        'placeholder': 'Place a bid'
       }),
       
       }
