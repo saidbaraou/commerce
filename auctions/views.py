@@ -188,7 +188,7 @@ def listing_detail_view(request, listing_id):
     is_in_watchlist = False
     watchlist_number = None
     bid_form = None
-   
+    bid_winner = listing.winner
 
     if request.user.is_authenticated:
        user = request.user
@@ -207,6 +207,7 @@ def listing_detail_view(request, listing_id):
             "is_in_watchlist": is_in_watchlist,
             "watchlist_number": watchlist_number,
             "form": bid_form,
+            "bid_winner": bid_winner
             }
     return render(request, 'auctions/listing_detail.html', context)
 
