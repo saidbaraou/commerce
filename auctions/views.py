@@ -190,6 +190,16 @@ def listing_detail_view(request, listing_id):
     bid_form = None
     bid_winner = listing.winner
 
+    highest_bid = Bid.objects.filter(listing_id=listing_id).order_by('-bid_amount').first()
+
+    if highest_bid:
+        highest_bid_amount = highest_bid.bid_amount
+        highest_bid_user = highest_bid.user
+    else:
+        highest_bid_amount = None
+        highest_bid_user = None
+    
+
     if request.user.is_authenticated:
        user = request.user
        watchlist_number = get_watchlist_length(user)
@@ -207,7 +217,9 @@ def listing_detail_view(request, listing_id):
             "is_in_watchlist": is_in_watchlist,
             "watchlist_number": watchlist_number,
             "form": bid_form,
-            "bid_winner": bid_winner
+            "bid_winner": bid_winner,
+            'highest_bid_amount': highest_bid_amount,
+            'highest_bid_user': highest_bid_user
             }
     return render(request, 'auctions/listing_detail.html', context)
 

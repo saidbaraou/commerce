@@ -49,11 +49,10 @@
     {% if listing.current_bid %}
     <h3 class="mb-2 text-decoration-line-through">${{ listing.price }}</h3>
     <h3 class="mb-2">${{ listing.current_bid }}</h3>
-    {% if request.user == user and user != listing.created_by %}
+    {% if request.user == user and request.user == highest_bid_user %}
     <p class="text-secondary">Current bid is yours
       {% else %}
-    <p class="text-secondary">Current bid was placed by (To complete with the right user, the one who placed the biggest
-      bid)
+    <p class="text-secondary">Current bid was placed by {{ highest_bid_user }}
       {% endif %}
       {% else %}
     <h3 class="mb-2">${{ listing.price }}</h3>
