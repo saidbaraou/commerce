@@ -100,7 +100,7 @@
 
 
         <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
-        {% if user.is_authenticated and user != listing.created_by %}
+        {% if user.is_authenticated and user != listing.created_by and listing.is_available == True %}
         <hr>
         <h5>Bid</h5>
 
@@ -127,13 +127,9 @@
         {% if request.user == user and user == listing.created_by and listing.is_available == True %}
         <div class="d-grid">
           <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
-            class="btn btn-outline-secondary mt-5">close auction</button>
+            class="btn btn-outline-secondary mt-5">close Bid</button>
         </div>
         {% endif %}
-
-
-
-
       </div>
     </div>
 
