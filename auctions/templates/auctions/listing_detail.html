@@ -1,6 +1,8 @@
 {% extends "auctions/layout.html" %}
 
 
+{% block extra-css %}
+
 <style>
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
@@ -14,7 +16,7 @@
   }
 </style>
 
-
+{% endblock %}
 
 {% block body %}
 
@@ -55,7 +57,7 @@
     {% endif %}
 
     {% if listing.is_available == True %}
-    {% if highest_bid_user %}
+    {% if listing.current_bid %}
     {% if request.user == user and request.user == highest_bid_user %}
     <p>Current bid is yours</p>
     {% else %}
@@ -132,12 +134,12 @@
     {% endif %}
 
     {% if request.user == user and user == listing.created_by and listing.is_available == True %}
+    {% if listing.current_bid %}
     <div class="d-grid">
       <button type=" submit" method="POST" action="{% url 'close_bid' listing_id=listing.id %}"
         class="btn btn-outline-secondary mt-5">close Bid</button>
     </div>
     {% endif %}
-    </p>
-    </p>
+    {% endif %}
 
     {% endblock %}
