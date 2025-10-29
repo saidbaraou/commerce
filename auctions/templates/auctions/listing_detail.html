@@ -55,14 +55,18 @@
     {% endif %}
 
     {% if listing.is_available == True %}
+    {% if highest_bid_user %}
     {% if request.user == user and request.user == highest_bid_user %}
-    <p class="text-secondary">Current bid is yours
-      {% else %}
-    <p class="text-secondary">Current bid was placed by {{ highest_bid_user }}
-      {% endif %}
-      {% endif %}
+    <p>Current bid is yours</p>
+    {% else %}
+    <p>Current bid was placed by {{ highest_bid_user }} </p>
+    {% endif %}
+    {% else %}
+    <p>No bid was placed on this item yet</p>
+    {% endif %}
+    {% endif %}
 
-      {% if request.user == listing.created_by %}
+    {% if request.user == listing.created_by %}
     <p class="text-secondary">Listed by you -
       On {{ listing.created_at }}
       {% else %}
