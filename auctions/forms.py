@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Listing, Category, Bid
+from .models import Listing, Category, Bid, Comment
 
 INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
 
@@ -94,3 +94,16 @@ class BidForm(forms.ModelForm):
                     f"Your bid of ${bid_amount} must be at least as large as the initial price of ${min_price}."
                 )
       return bid_amount
+    
+class AddComment(forms.ModelForm):
+   
+   class Meta:
+    Model = Comment
+    fields = ('comment_content',)
+
+    widgets = {
+      'content': forms.TextInput(attrs={
+        'class': INPUT_CLASSES,
+        'placeholder': 'Comment'
+      })
+    }
