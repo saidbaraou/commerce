@@ -307,3 +307,32 @@ def close_bid(request, listing_id):
     listing.save()
     
     return redirect(reverse("listing_detail", args=[listing_id]))
+
+@require_POST
+@login_required
+def add_comment(request, listing_id):
+    listing = get_object_or_404(Listing, id=listing_id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.method, listing=listing)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+
+            new_comment.user = request.user
+            new_comment.listing = listing
+
+            new_comment.save()
+
+            return redirect('listing_detail', listing_id=listing_id)
+        
+        else: messages.error()
+
+        context = {
+            'form': form,
+            'new_comment': new_comment
+        }
+        return render(request, "auctions/listing_detail.html", context)
+
+    return render(request, "auctions/listing_detail.html/", context)
+
