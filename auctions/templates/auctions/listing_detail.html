@@ -25,7 +25,7 @@
   <div class="p-3 d-flex flex-column">
 
     {% if listing.image_url %}
-    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" width="200" height="400">
+    <img class="card-img-top" src="{{ listing.image_url }}" alt="{{listing.title}}" max-width="200" height="400">
     {% else %}
     <img
       src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.Pneh22uyXw_rJ8leBae8VwHaHa%26pid%3DApi&f=1&ipt=10c45487fc9f75a21350c49ed1a2afbb06a8c4f4ee6e45cec979419944b77f4f&ipo=images"
@@ -77,10 +77,8 @@
       {% endif %}
 
 
-      {% if user.is_authenticated %}
-
+      <!-- {% if user.is_authenticated %} -->
       {% if is_in_watchlist %}
-
     <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
 
       {% csrf_token %}
@@ -89,7 +87,7 @@
       </div>
     </form>
     {% else %}
-    {% if request.user != user %}
+    <!-- {% if request.user != user %} -->
     <form method="POST" action="{% url 'add_watchlist' listing_id=listing.id %}">
 
       {% csrf_token %}
@@ -98,7 +96,7 @@
       </div>
     </form>
     <hr>
-    {% endif %}
+    <!-- {% endif %} -->
     {% endif %}
 
     {% endif %}
@@ -109,33 +107,6 @@
 
 
 
-    <hr>
-    <h5>Comments</h5>
-    {% for comment in all_comments %}
-    <div class="bg-light my-3 px-3 py-2 ">
-      <p class="mb-5">{{ comment.content }}</p>
-      <p class="fw-bold">@{{ comment.user }} <span class="text-secondary fw-light">{{ comment.timestamp }} </span></p>
-    </div>
-    {% endfor %}
-
-    {% if request.user == user %}
-    <form method="POST" action="{% url 'add_comment' listing_id=listing.id %}">
-      {% csrf_token %}
-      <div>
-        {{ comment_form.as_p }}
-        <div class="invalid-feedback">
-          {% for field in comment_form %}
-          {{ field.errors }}
-          {% endfor %}
-
-          {{ comment_form.non_field_errors }}
-        </div>
-      </div>
-
-      <button type=" submit" class="btn btn-primary mt-2">Submit</button>
-
-    </form>
-    {% endif %}
 
     <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
     {% if user.is_authenticated and user != listing.created_by and listing.is_available == True %}
@@ -169,6 +140,35 @@
         class="btn btn-outline-secondary mt-5">close Bid</button>
     </div>
     {% endif %}
+    {% endif %}
+
+
+    <hr>
+    <h5>Comments</h5>
+    {% for comment in all_comments %}
+    <div class="bg-light my-3 px-3 py-2 ">
+      <p class="mb-5">{{ comment.content }}</p>
+      <p class="fw-bold">@{{ comment.user }} <span class="text-secondary fw-light">{{ comment.timestamp }} </span></p>
+    </div>
+    {% endfor %}
+
+    {% if request.user == user %}
+    <form method="POST" action="{% url 'add_comment' listing_id=listing.id %}">
+      {% csrf_token %}
+      <div>
+        {{ comment_form.as_p }}
+        <div class="invalid-feedback">
+          {% for field in comment_form %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ comment_form.non_field_errors }}
+        </div>
+      </div>
+
+      <button type=" submit" class="btn btn-primary mt-2">Submit</button>
+
+    </form>
     {% endif %}
 
     {% endblock %}

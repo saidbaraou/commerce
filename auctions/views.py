@@ -131,7 +131,7 @@ def create_listing_view(request):
 
 def filter_category_view(request):
     form = CategoryFilterForm()
-    available_listings = Listing.objects.filter(is_sold=False)
+    available_listings = Listing.objects.filter(is_available=True)
     categories = Category.objects.all()
 
     if request.method == 'GET':
