@@ -98,10 +98,6 @@ class BidForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
    
-   def __init__(self, *args, **kwargs):
-      self.listing = kwargs.pop('listing', None)
-      super().__init__(*args, **kwargs)
-   
    class Meta:
     model = Comment
     fields = ('content',)
@@ -112,3 +108,10 @@ class CommentForm(forms.ModelForm):
         'placeholder': 'Comment'
       })
     }
+
+   def __init__(self, *args, **kwargs):
+    self.listing = kwargs.pop('listing', None)
+    super().__init__(*args, **kwargs)
+    for field_name in self.fields:
+     self.fields[field_name].label=False
+   
