@@ -110,16 +110,16 @@
     {% if request.user == user %}
     <hr>
     <h5>Comment</h5>
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'add_comment' listing_id=listing.id %}">
       {% csrf_token %}
       <div>
         {{ comment_form.as_p }}
         <div class="invalid-feedback">
-          {% for field in form %}
+          {% for field in comment_form %}
           {{ field.errors }}
           {% endfor %}
 
-          {{ form.non_field_errors }}
+          {{ comment_form.non_field_errors }}
         </div>
       </div>
 
