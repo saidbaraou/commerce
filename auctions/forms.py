@@ -98,9 +98,13 @@ class BidForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
    
+   def __init__(self, *args, **kwargs):
+      self.listing = kwargs.pop('listing', None)
+      super().__init__(*args, **kwargs)
+   
    class Meta:
-    Model = Comment
-    fields = ('comment_content',)
+    model = Comment
+    fields = ('content',)
 
     widgets = {
       'content': forms.TextInput(attrs={

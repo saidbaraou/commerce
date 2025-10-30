@@ -334,5 +334,5 @@ def add_comment(request, listing_id):
         }
         return render(request, "auctions/listing_detail.html", context)
 
-    return render(request, "auctions/listing_detail.html/", context)
+    return render(request, "auctions/listing_detail.html", context)
 

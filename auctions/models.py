@@ -63,3 +63,9 @@ class Comment(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing_comment")
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f""""
+    {self.content}
+    Comment by ${self.user.username} on {self.timestamp}
+    """
