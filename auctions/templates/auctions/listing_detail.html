@@ -107,7 +107,24 @@
     <h5>Description</h5>
     <p>{{ listing.description }} </p>
 
+    {% if request.user == user %}
 
+    <form method="POST" action="">
+      {% csrf_token %}
+      <div>
+        {{ form.as_p }}
+        <div class="invalid-feedback">
+          {% for field in form %}
+          {{ field.errors }}
+          {% endfor %}
+
+          {{ form.non_field_errors }}
+        </div>
+        <button type="submit" class="btn btn-check"></button>
+      </div>
+    </form>
+
+    {% endif %}
 
     <!-- This condition here to render the bid form only if the user is not the one who created the listing -->
     {% if user.is_authenticated and user != listing.created_by and listing.is_available == True %}

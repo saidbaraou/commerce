@@ -94,8 +94,9 @@ class BidForm(forms.ModelForm):
                     f"Your bid of ${bid_amount} must be at least as large as the initial price of ${min_price}."
                 )
       return bid_amount
-    
-class AddComment(forms.ModelForm):
+
+
+class CommentForm(forms.ModelForm):
    
    class Meta:
     Model = Comment

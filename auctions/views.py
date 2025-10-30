@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from .models import User, Category, Listing, Watchlist, Bid
-from .forms import AddListingForm, CategoryFilterForm, BidForm
+from .forms import AddListingForm, CategoryFilterForm, BidForm, CommentForm
 
 
 def index(request):
@@ -189,6 +189,7 @@ def listing_detail_view(request, listing_id):
     watchlist_number = None
     bid_form = None
     bid_winner = listing.winner
+    comment_form = None
 
     highest_bid = Bid.objects.filter(listing_id=listing_id).order_by('-bid_amount').first()
 
@@ -212,6 +213,9 @@ def listing_detail_view(request, listing_id):
        if request.user != listing.created_by:
            bid_form = BidForm(listing=listing)
 
+    if request.user.is_authenticated:
+        comment_form = CommentForm(listing=listing)
+
     context = {
             "listing": listing,
             "is_in_watchlist": is_in_watchlist,
@@ -219,7 +223,8 @@ def listing_detail_view(request, listing_id):
             "form": bid_form,
             "bid_winner": bid_winner,
             'highest_bid_amount': highest_bid_amount,
-            'highest_bid_user': highest_bid_user
+            'highest_bid_user': highest_bid_user,
+            'comment_form': comment_form
             }
     return render(request, 'auctions/listing_detail.html', context)
 
