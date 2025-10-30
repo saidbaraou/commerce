@@ -190,6 +190,7 @@ def listing_detail_view(request, listing_id):
     bid_form = None
     bid_winner = listing.winner
     comment_form = None
+    all_comments = listing.listing_comment.all().order_by('-timestamp')
 
     highest_bid = Bid.objects.filter(listing_id=listing_id).order_by('-bid_amount').first()
 
@@ -224,7 +225,8 @@ def listing_detail_view(request, listing_id):
             "bid_winner": bid_winner,
             'highest_bid_amount': highest_bid_amount,
             'highest_bid_user': highest_bid_user,
-            'comment_form': comment_form
+            'comment_form': comment_form,
+            'all_comments': all_comments
             }
     return render(request, 'auctions/listing_detail.html', context)
 
@@ -335,6 +337,8 @@ def add_comment(request, listing_id):
             print("--- 4. FORM IS NOT VALID! ---")
             print("Form Errors:", form.errors)
             messages.error(request, 'Error submitting comment. Please check the content.')
+
+    
 
         context = {
             'form': form,
