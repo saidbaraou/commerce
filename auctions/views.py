@@ -315,30 +315,22 @@ def close_bid(request, listing_id):
 def add_comment(request, listing_id):
     listing = get_object_or_404(Listing, id=listing_id)
 
-    print("--- 1. ADD COMMENT VIEW REACHED ---")
-
     if request.method == 'POST':
         form = CommentForm(request.POST, listing=listing)
 
         if form.is_valid():
-            print("--- 2. FORM IS VALID! Proceeding to save... ---")
-
+            
             new_comment = form.save(commit=False)
             new_comment.user = request.user
             new_comment.listing = listing
             new_comment.save()
 
-            print("--- 3. COMMENT SAVED TO DB! ---")
-
             messages.success(request, 'Comment added successfully!')
             return redirect('listing_detail', listing_id=listing_id)
         
         else: 
-            print("--- 4. FORM IS NOT VALID! ---")
-            print("Form Errors:", form.errors)
+           
             messages.error(request, 'Error submitting comment. Please check the content.')
-
-    
 
         context = {
             'form': form,
