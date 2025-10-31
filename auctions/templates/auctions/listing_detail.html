@@ -1,5 +1,5 @@
 {% extends "auctions/layout.html" %}
-
+{% load humanize %}
 
 {% block extra-css %}
 
@@ -70,10 +70,10 @@
 
     {% if request.user == listing.created_by %}
     <p class="text-secondary">Listed by you -
-      On {{ listing.created_at }}
+      {{ listing.created_at|naturalday }}
       {% else %}
     <p class="text-secondary">Listed by {{ listing.created_by }} -
-      On {{ listing.created_at }}
+      {{ listing.created_at|naturalday }}
       {% endif %}
 
 
@@ -145,7 +145,8 @@
     {% for comment in all_comments %}
     <div class="bg-light my-3 px-3 py-2 ">
       <p class="mb-5">{{ comment.content }}</p>
-      <p class="fw-bold">@{{ comment.user }} <span class="text-secondary fw-light">{{ comment.timestamp }} </span></p>
+      <p class="fw-bold">@{{ comment.user }} <span class="text-secondary fw-light">{{ comment.timestamp|naturalday }}
+        </span></p>
     </div>
     {% endfor %}
 
