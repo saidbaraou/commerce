@@ -131,8 +131,10 @@ def create_listing_view(request):
 
 def filter_category_view(request):
     form = CategoryFilterForm()
+    user = request.user
     available_listings = Listing.objects.filter(is_available=True)
     categories = Category.objects.all()
+    watchlist_number = get_watchlist_length(user)
 
     if request.method == 'GET':
         
@@ -146,9 +148,10 @@ def filter_category_view(request):
     context = {
         "form": form,
         "categories": categories,
-        "listings": listings
+        "listings": listings,
+        "watchlist_number": watchlist_number
     }
-    return render(request, 'auctions/index.html', context)
+    return render(request, 'auctions/welcome.html', context)
 
 
 def get_watchlist_listing(user):
