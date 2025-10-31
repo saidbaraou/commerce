@@ -103,7 +103,7 @@ class CommentForm(forms.ModelForm):
     fields = ('content',)
 
     widgets = {
-      'content': forms.TextInput(attrs={
+      'content': forms.Textarea(attrs={
         'class': INPUT_CLASSES,
         'placeholder': 'Comment'
       })
