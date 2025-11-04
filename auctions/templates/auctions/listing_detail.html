@@ -77,7 +77,7 @@
       {% endif %}
 
 
-      {% if user.is_authenticated %}
+      {% if user.is_authenticated and listing.is_available %}
       {% if is_in_watchlist %}
     <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
 
