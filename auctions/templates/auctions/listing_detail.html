@@ -56,17 +56,6 @@
     </p>
     {% endif %}
 
-    {% if listing.is_available == True %}
-    {% if listing.current_bid %}
-    {% if request.user == user and request.user == highest_bid_user %}
-    <p>Current bid is yours</p>
-    {% else %}
-    <p>Current bid was placed by {{ highest_bid_user }} </p>
-    {% endif %}
-    {% else %}
-    <p>No bid was placed on this item yet</p>
-    {% endif %}
-    {% endif %}
 
     {% if request.user == listing.created_by %}
     <p class="text-secondary">Listed by you -
@@ -77,8 +66,21 @@
       {% endif %}
 
 
-      {% if user.is_authenticated and listing.is_available %}
-      {% if is_in_watchlist %}
+      {% if listing.is_available == True %}
+      {% if listing.current_bid %}
+      {% if request.user == user and request.user == highest_bid_user %}
+    <p>Current bid is yours</p>
+    {% else %}
+    <p>Current bid was placed by {{ highest_bid_user }} </p>
+    {% endif %}
+    {% else %}
+    <p>No bid was placed on this item yet</p>
+    {% endif %}
+    {% endif %}
+
+
+    {% if user.is_authenticated and listing.is_available %}
+    {% if is_in_watchlist %}
     <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
 
       {% csrf_token %}
