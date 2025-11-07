@@ -2,11 +2,11 @@
 
 
 {% block body %}
-<h2 class="mb-5">{{user.username}}'s watchlist</h2>
+<h2 class="mb-5">All listings saved by users</h2>
 
 <div class="container">
 
-  {% for listing in watchlist_listings %}
+  {% for listing in all_watched_listings %}
   <ul class="list-unstyled item-list">
 
     <li class="item d-flex align-items-start">
@@ -26,11 +26,14 @@
 
         <a href="{% url 'listing_detail' listing.id %}" class="btn btn-primary mt-3 mb-1">See details</a>
 
+        {% if request.user == watchlist_user %}
         <form method="POST" action="{% url 'remove_watchlist' listing_id=listing.id %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-outline-danger">Remove from watchlist</button>
+          <button type="submit" class="btn btn-outline-danger">
+            <i class="fa fa-minus-circle"></i> Remove from Watchlist
+          </button>
         </form>
-
+        {% endif %}
       </div>
 
     </li>
