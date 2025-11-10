@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import Listing, Category, Bid, Comment
 
-INPUT_CLASSES = 'form-control w-75 rounded py-2 px-3 border'
+INPUT_CLASSES = 'form-control w-100 rounded py-2 px-3 border'
 
 class AddListingForm(forms.ModelForm):
   class Meta:
