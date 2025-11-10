@@ -180,7 +180,6 @@ def watchlist_view(request):
     watchlist_number = get_watchlist_length(user)
     all_watched_listings = Listing.objects.filter(watchlists__isnull=False).distinct()
 
-    
 
     context = {
         "watchlist_listings": watchlist_listings,
