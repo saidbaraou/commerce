@@ -178,13 +178,11 @@ def watchlist_view(request):
     user = request.user
     watchlist_listings = get_watchlist_listing(user)
     watchlist_number = get_watchlist_length(user)
-    all_watched_listings = Listing.objects.filter(watchlists__isnull=False).distinct()
 
 
     context = {
         "watchlist_listings": watchlist_listings,
-        "watchlist_number": watchlist_number,
-        "all_watched_listings": all_watched_listings,
+        "watchlist_number": watchlist_number
     }
     return render(request, "auctions/watchlist.html", context)
 
