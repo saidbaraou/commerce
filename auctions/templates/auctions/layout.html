@@ -23,10 +23,12 @@
     <!-- Pop up messages functionality -->
     {% if messages %}
     {% for message in messages %}
-    <div class="container mt-4">
-        <div id="alertElement" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="container mt-4 d-flex justify-content-center">
+        <div class="fixed-top p-3 w-50" style="z-index: 9999">
+            <div id="alertElement" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
     </div>
     {% endfor %}
@@ -80,7 +82,7 @@
     {% endblock %}
 
 
-    <script>
+    <!-- <script>
         const alertElement = document.getElementById('alertElement')
 
         if (alertElement) {
@@ -89,7 +91,7 @@
                 bootstrapAlert.close();
             }, 3000);
         }
-    </script>
+    </script> -->
 
 </body>
 

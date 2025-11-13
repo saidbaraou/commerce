@@ -20,7 +20,9 @@ class AddListingForm(forms.ModelForm):
       }),
       'description': forms.Textarea(attrs={
         'class': INPUT_CLASSES,
-        'placeholder': 'Description'
+        'style': 'resize: none;',
+        'rows': 5,
+        'placeholder': 'Enter a description'
       }),
       'price': forms.NumberInput(attrs={
         'class': INPUT_CLASSES,
