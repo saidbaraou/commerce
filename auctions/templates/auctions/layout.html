@@ -23,17 +23,17 @@
     <!-- Pop up messages functionality -->
     {% if messages %}
     {% for message in messages %}
-    <!-- <div class="container mt-4 w-50 d-flex justify-content-center"> -->
+
     <div class="fixed-top p-3 d-flex justify-content-center" style="z-index: 9999">
         <div id="alertElement" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
-    <!-- </div> -->
+
     {% endfor %}
     {% endif %}
-    <!-- Pop up messages functionality -->
+
 
     <h1>Auctions</h1>
     <div>

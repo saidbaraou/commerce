@@ -117,7 +117,7 @@ def create_listing_view(request):
                     pass
                 new_listing.created_by = request.user
                 new_listing.save()
-                messages.success(request, 'Listing added successfully!')
+                messages.success(request, 'Listing successfully added!')
                 return redirect(reverse("index"))
     else: form = AddListingForm()
 
@@ -243,7 +243,7 @@ def add_watchlist_view(request, listing_id):
     watchlist, created = Watchlist.objects.get_or_create(user=user)
     #add the listing to the watchlist 
     watchlist.listings.add(listing) 
-    messages.success(request, 'Successfully added to watchlist!')
+    messages.success(request, 'Listing successfully added to watchlist!')
     return redirect(reverse("watchlist"))
 
 
@@ -255,7 +255,7 @@ def remove_watchlist_view(request, listing_id):
     watchlist, created = Watchlist.objects.get_or_create(user=user)
     #remove the listing from the watchlist 
     watchlist.listings.remove(listing) 
-    messages.warning(request, 'Removed successfully from watchlist!')
+    messages.warning(request, 'Listing successfully removed from watchlist!')
     return redirect(reverse("watchlist"))
 
 
@@ -276,7 +276,7 @@ def place_bid(request, listing_id):
             listing.current_bid = new_bid.bid_amount
             listing.save()
 
-            messages.success(request, 'Bid added successfully!')
+            messages.success(request, 'Bid successfully added!')
             return redirect('listing_detail', listing_id=listing_id)
         
         else:
@@ -310,7 +310,7 @@ def close_bid(request, listing_id):
 
     listing.is_available = False
     listing.save()
-    messages.success(request, 'Bid has been closed successfully!')
+    messages.success(request, 'Bid successfully closed!')
     
     return redirect(reverse("listing_detail", args=[listing_id]))
 
@@ -329,7 +329,7 @@ def add_comment(request, listing_id):
             new_comment.listing = listing
             new_comment.save()
 
-            messages.success(request, 'Comment added successfully!')
+            messages.success(request, 'Comment successfully added!')
             return redirect('listing_detail', listing_id=listing_id)
         
         else: 
