@@ -20,10 +20,51 @@
     background-color: var(--bs-primary) !important;
 }
 
+/* Custom Button Override: Targets the standard Bootstrap button primary classes */
+.btn-primary {
+    /* Background and border color set to your custom Teal variable */
+    --bs-btn-bg: var(--bs-teal);
+    --bs-btn-border-color: var(--bs-teal);
+    
+    /* Ensure a slightly darker color for hover/focus states */
+    --bs-btn-hover-bg: #008779; /* Slightly darker Teal for visual feedback */
+    --bs-btn-hover-border-color: #008779;
+    
+    /* Text remains white for contrast */
+    --bs-light: #FFFFFF;
 
-body {
-    /* padding: 10px; */
+    /* Sets the color for when the button is actively pressed or focused */
+    --bs-btn-active-bg: #007063;        /* A slightly darker Teal for the pressed state */
+    --bs-btn-active-border-color: #007063;
+    
+    /* Fix the 'ring' color when focused (removes the default blue glow) */
+    --bs-btn-focus-shadow-rgb: 0, 168, 150; /* RGB values for your Airy Teal (#00A896) */
 }
+
+.bg-danger {
+    background-color: var(--bs-danger) !important; 
+}
+
+.btn-outline-danger {
+    /* Set the button's standard colors to your custom Coral variable */
+    --bs-btn-bg: var(--bs-light);
+    --bs-btn-color: var(--bs-coral);
+    --bs-btn-border-color: var(--bs-coral);
+    
+    /* Set the hover state to a slightly darker shade for visual feedback */
+    --bs-btn-hover-bg: #E65C51; /* Slightly darker Coral */
+    --bs-btn-hover-border-color: #E65C51;
+    
+    /* Set the active/pressed state */
+    --bs-btn-active-bg: #CC4A3E; /* Even darker Coral for active state */
+    --bs-btn-active-border-color: #CC4A3E;
+    
+    /* Fix the 'ring' color when focused (removes the default blue glow) */
+    --bs-btn-focus-shadow-rgb: 255, 111, 97; /* RGB values for Vibrant Coral (#FF6F61) */
+    
+    --bs-btn-color: var(--bs-coral);
+}
+
 
 
 input[type="number"]::-webkit-outer-spin-button,

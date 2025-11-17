@@ -1,5 +1,5 @@
+{% load static %}
 {% extends "auctions/layout.html" %}
-
 
 {% block body %}
 <h2 class="mb-5">Active Listings</h2>
@@ -15,7 +15,7 @@
             <option value="{{ category }}">{{ category.name }}</option>
             {% endfor %}
           </select>
-          <button type="submit" class="btn btn-primary ">Filter</button>
+          <button type="submit" class="btn btn-primary bg-primary">Filter</button>
         </div>
       </div>
     </div>
