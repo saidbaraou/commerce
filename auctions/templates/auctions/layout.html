@@ -33,7 +33,7 @@
                 {% if user.is_authenticated %}
                 <p class="text-white">Signed in as <strong>{{ user.username }}</strong></p>
                 {% else %}
-                Not signed in.
+                <p class="text-white">Not signed in</p>
                 {% endif %}
             </div>
         </div>
@@ -65,10 +65,10 @@
 
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    <a class="nav-link text-white" href="{% url 'login' %}">Log In</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
                 </li>
                 {% endif %}
             </ul>
