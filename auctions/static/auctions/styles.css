@@ -65,6 +65,10 @@
     --bs-btn-color: var(--bs-coral);
 }
 
+.text-danger {
+    color: var(--bs-danger) !important;
+}
+
 
 
 input[type="number"]::-webkit-outer-spin-button,

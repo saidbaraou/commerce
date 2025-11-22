@@ -49,8 +49,12 @@
 
 
     {% if listing.current_bid %}
-    <h3 class="mb-2 text-decoration-line-through text-secondary">${{ listing.price }}</h3>
-    <h3 class="mb-2">${{ listing.current_bid }}</h3>
+    <div class="d-flex gap-2">
+      <h3 class="mb-2 text-danger">${{ listing.current_bid }}</h3>
+      <h3 class="mb-2 text-decoration-line-through text-secondary">${{ listing.price }}</h3>
+    </div>
+
+
     {% else %}
     <h3 class="mb-2">${{ listing.price }}</h3>
     </p>
